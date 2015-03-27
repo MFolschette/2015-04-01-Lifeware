@@ -1,0 +1,269 @@
+% Conclusion
+
+\begin{frame}[c]
+  \frametitle{General Conclusion}
+
+Standard Process Hitting allows to represent biological regulatory networks
+in an \tval{atomistic} fashion:
+\begin{itemize}
+  \item Existing efficient static analysis
+  \item But temporal shift issues
+  \item Limited modeling power
+\end{itemize}
+
+\medskip
+\tval{Extensions of the Process Hitting} to improve the expressivity:
+\begin{itemize}
+  \item Rectification of the temporal shift \f Strictly higher expressivity
+  \item Allows to abstract temporal parameters
+  \item New links to other formalisms (Thomas, PN, etc.)
+\end{itemize}
+
+\medskip
+
+\tval{Static analysis} of the Canonical Process Hitting:
+\begin{itemize}
+  \item Efficient analysis of reachability properties
+  \item Applicable to the extensions at the cost of a translation
+  \item New kind of property: simultaneous activation
+\end{itemize}
+
+% 
+% 
+% Process Hitting: an atomistic modeling with powerful static analysis
+% 
+% \medskip
+% \begin{enumerate}[1.]
+%   \item Stochastic parameters:
+%     \begin{itemize}
+%       \item To model systems with chronometric features
+%       \item \tval{Continuous time}
+%       \item But \tval{hard to analyze}
+%     \end{itemize}
+%   \item Classes of priorities:
+%     \begin{itemize}
+%       \item Allows to reproduce the same behaviors
+%       \item Efficient \tval{static analysis}
+%       \item But the translation to canonical form faces \tval{combinatorial explosion}
+%     \end{itemize}
+%   \item Neutralizing edges:
+%     \begin{itemize}
+%       \item Alternative to priorities
+%       \item Closer to reality in some cases
+%       \item \tval{Lighter translation} to canonical form
+%     \end{itemize}
+% \end{enumerate}
+% 
+% \vfill
+% \Large
+% \begin{flushright}
+%   \tval{Thank you}\hspace{1cm}~
+% \end{flushright}
+% \vfill
+
+\end{frame}
+
+\setbeamercovered{invisible}
+
+
+
+\begin{frame}[c]
+  \frametitle{Outlooks}
+
+New \tval{exploitation} possibilities:
+\begin{itemize}
+  \item Modeling and analysis of full databases
+  \item Study of uncontrollable behaviors or punctual perturbations
+  \item Research of interesting properties (attractors, oscillations, ...)
+\end{itemize}
+
+\medskip
+Improvement of the \tval{static analysis}:
+\begin{itemize}
+  \item Refining in order to reduce the non-conclusiveness
+  \item New methods using by-products such as the local causality graph
+  \item New properties to check (temporal logic, counters, ...)
+\end{itemize}
+
+\medskip
+Enrichment of the \tval{modeling power}:
+\begin{itemize}
+  \item Dynamical classes of priorities
+  \item Guarded actions or complex logic gates
+  \item New model checking tools (Hoare logic, ...)
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{Collaborations}
+
+Participation to the \tval{ANR blanc} project \tval{BioTempo} (March 2011 -- November 2014):
+\begin{center}
+“Language, time representations and hybrid models\\
+for the analysis of incomplete models in molecular biology”
+\end{center}
+Task 3: Introduce synchronization and continuous time in chronological models:\\
+programming language, multi-clocks and hybrid systems
+
+\bigskip
+\bigskip
+3 months PhD internship (March -- May 2012):\\
+\tval{National Institute of Informatics} (Tokyo, Japan)\\
+Invited in the team of \tval{Katsumi Inoue}
+\begin{center}
+“Automated Reasoning and Hypothesis\\
+Finding for Systems Biology”
+\end{center}
+Partnership organized with AtlanSTIC
+Financial participation of Centrale Initiatives 
+
+
+
+%\tval{Inoue Laboratory} (NII, Sokendai): Constraint Programming, Systems Biology
+
+%\tval{MeForBio} (IRCCyN, ÉCN): Formal Methods for Bioinformatics
+
+%\tval{AMIB} (LIX, Polytechnique): Algorithms and Models for Integrative Biology
+
+% \bigskip\footnotesize
+% \begin{center}
+%   $\left.\text{\begin{tabular}{ccc}
+%       \includegraphics[height=1.5cm]{figs/Olivier.jpg}
+%     & \includegraphics[height=1.5cm]{figs/Morgan.jpg} \\
+%       \tval{Olivier ROUX} & \tval{Morgan MAGNIN} \\
+%       Professeur \& chef d'équipe & Maître de conférences
+%   \end{tabular}}\right\}$ %\text{\tval{MeForBio}}$%}
+%   \parbox{2cm}{\tval{MeForBio}\\IRCCyN\\(Nantes, France)}
+% 
+%   \vspace*{3em}
+%   $\left.\text{\begin{tabular}{c}
+%     \includegraphics[height=1.5cm]{figs/Loic.jpg} \\ \tval{Loïc PAULEVÉ} \\ Chargé de recherche CNRS
+%   \end{tabular}}\right\}$%\text{\tval{AMIB}}$
+%   \parbox{1.5cm}{\tval{Bioinfo/AMIB}\\LRI\\(Orsay, France)}
+%   \hspace*{3em}
+%   $\left.\text{\begin{tabular}{c}
+%     \includegraphics[height=1.5cm]{figs/Inoue-sensei.jpg} \\ \tval{Katsumi INOUE} \\ Professeur \& chef d'équipe
+%   \end{tabular}}\right\}$%\text{\tval{Inoue Laboratory}}$
+%   \parbox{1.5cm}{\tval{Inoue Lab.}\\NII\\(Tokyo, Japon)}
+% \end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{Personal Contributions}
+
+\small
+\emphcolor{Book chapter:}
+\begin{itemize}
+  \item Paulevé, Chancellor, \tval{Folschette}, Magnin, Roux :\\
+    \tval{Analyzing Large Network Dynamics with Process Hitting},\\
+    \textit{Logical Modeling of Biological Systems}, août 2014
+\end{itemize}
+
+\medskip
+\emphcolor{Conferences and workshops:}
+\begin{itemize}
+  \item \tval{Folschette}, Paulevé, Magnin, Roux :\\
+    \tval{Under-approximation of reachability in multivalued asynchronous networks},
+    \begin{tikzpicture}
+      \path[use as bounding box] (0,0) rectangle (0,.1);
+      \path[grosarca, ->] (2,0.08) edge (.3,0.08);
+      \path[grosarca, ->] (2,-3.45) edge (.3,-3.45);
+      \path[grosarca] (2,0.08) edge (2,-3.45);
+    \end{tikzpicture}\\
+    CS2Bio'13, \textit{Electronic Notes in Theoretical Computer Science}, \vol 299, 2013\\
+    \emphcolor{sélectionné pour un numéro spécial} de \textit{Theoretical Computer Science}
+ \item \tval{Folschette}, Paulevé, Inoue, Magnin, Roux :\\
+    \tval{Concretizing the process hitting into biological regulatory networks},
+    \begin{tikzpicture}
+      \path[use as bounding box] (0,0) rectangle (0,.1);
+      \path[grosarcb, ->] (2,0.08) edge (0.3,0.08);
+      \path[grosarcb, ->] (2,-0.9) edge (0.8,-0.9);
+      \path[grosarcb, ->] (2,-3.15) edge (1.1,-3.15);
+      \path[grosarcb] (2,0.08) edge (2,-3.15);
+    \end{tikzpicture}\\
+    CMSB'12, \textit{Lecture Notes in Computer Science}, 2012
+  \item \tval{Folschette}, Paulevé, Inoue, Magnin, Roux :\\
+    \tval{Abducing Biological Regulatory Networks from Process Hitting models},\\
+    \textit{ECML-PKDD'12 / LDSSB'12}, 2012
+\end{itemize}
+
+\emphcolor{Current journal submissions:}
+\begin{itemize}
+  \item \tval{Folschette}, Paulevé, Magnin, Roux :\\
+    \tval{Sufficient Conditions for Reachability in Automata Networks with Priorities},\\
+    \emphcolor{soumis} à un numéro spécial de \textit{Theoretical Computer Science}
+  \item \tval{Folschette}, Paulevé, Inoue, Magnin, Roux :\\
+    \tval{Constructing Biological Regulatory Networks from Process Hitting models},\\
+    \emphcolor{en cours de révision} pour \textit{Theoretical Computer Science}
+  \item Paulevé, \tval{Folschette}, Magnin, Roux :\\
+    \tval{Analyses statiques de la dynamique des réseaux d'automates indéterministes},\\
+    \emphcolor{soumis} à un numéro spécial de \textit{Technique et Science Informatiques}
+\end{itemize}
+
+\end{frame}
+
+
+
+% 
+% \begin{frame}[c]
+%   \frametitle{Contributions personnelles}
+% 
+% \small
+% \emphcolor{Chapitre de livre} avec Paulevé, Chancellor, Magnin, Roux :
+% \begin{itemize}
+%   \item \tval{Analyzing Large Network Dynamics with Process Hitting},\\
+%     \textit{Logical Modeling of Biological Systems},
+% %    éditeurs : Luis Farinas del Cerro et Katsumi Inoue,
+%     2014%, ISBN 978-1-84821-680-8.
+% \end{itemize}
+% 
+% \medskip
+% \emphcolor{Workshop} avec Paulevé, Magnin, Roux :
+% \begin{itemize}
+%   \item \tval{Under-approximation of reachability in multivalued asynchronous networks},\\
+%     CS2Bio'13,
+%     %in: Proceedings of the fourth International Workshop on Interactions between Computer Science and Biology,
+%     %éditeurs : Emanuela Merelli et Angelo Troina,
+%     \textit{Electronic Notes in Theoretical Computer Science}, \vol 299, 2013\\
+%     \emphcolor{sélectionné pour un numéro spécial} de \textit{Theoretical Computer Science}
+%     %33--51, Springer Berlin Heidelberg, juin 2013, DOI 10.1016/j.entcs.2013.11.004.
+%     %\emphcolor{Selected for a special issue in the journal \textit{Theoretical Computer Science}.}
+% \end{itemize}
+% 
+% \emphcolor{Conférence et workshop} avec Paulevé, Inoue, Magnin, Roux :
+% \begin{itemize}
+%   \item \tval{Concretizing the process hitting into biological regulatory networks},\\ %\newline{}
+%     CMSB'12, \textit{Lecture Notes in Computer Science}, %éditeurs : David Gilbert et Monika Heiner, %\newline{}
+%     2012
+%     %in: \textit{Computational Methods in Systems Biology}, éditeurs : David Gilbert et Monika Heiner, %\newline{}
+%     %166--186, Springer Berlin Heidelberg, octobre 2012, DOI 10.1007/978-3-642-33636-2\_11.
+%   \item \tval{Abducing Biological Regulatory Networks from Process Hitting models},\\
+%     \textit{ECML-PKDD'12 / LDSSB'12}, %éditeurs : Oliver Ray et Katsumi Inoue,
+%     2012
+%     %24--35, septembre 2012.
+% \end{itemize}
+% 
+% \emphcolor{Soumissions de journaux en cours :}
+% \begin{itemize}
+%   \item \tval{Folschette}, Paulevé, Magnin, Roux :\\
+%     \tval{Sufficient Conditions for Reachability in Automata Networks with Priorities},\\
+%     %version étendue de “Under-approximation of reachability in multivalued asynchronous networks”,
+%     \emphcolor{soumis} à un numéro spécial de  de \textit{Theoretical Computer Science}% en avril 2014.
+%   \item \tval{Folschette}, Paulevé, Inoue, Magnin, Roux :\\
+%     \tval{Constructing Biological Regulatory Networks from Process Hitting models},\\
+%     %extended version of “Concretizing the process hitting into biological regulatory networks”,
+%     \emphcolor{en cours de révision} pour \textit{Theoretical Computer Science}
+%   \item Paulevé, \tval{Folschette}, Magnin, Roux :\\
+%     \tval{Analyses statiques de la dynamique des réseaux d'automates indéterministes},\\
+%     \emphcolor{soumis} à un numéro spécial de \textit{Technique et Science Informatiques}
+%     %editors: N.~Fatès and S.~Sené,
+%     %\emphcolor{soumis} en avril 2014.
+% \end{itemize}
+% 
+% \end{frame}

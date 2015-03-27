@@ -1,0 +1,108 @@
+% Définition des priorités
+
+\begin{frame}[c]
+  \frametitle{Process Hitting with Classes of Priorities}
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-5.2,-4) rectangle (5.2,3.5);
+  \planPHstandard
+  \planPHp
+  \planPHan[stillhidden]
+  \planPHmult[stillhidden]
+  \planPHcanonique[stillhidden]
+\end{tikzpicture}
+
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Addition of classes of priorities}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\bigskip
+\begin{itemize}
+  \item Each action is associated to a discrete priority
+  \item An action is playable only if no other action with higher priority is playable
+\end{itemize}
+
+\medskip
+
+\begin{center}
+% \begin{tabular}{ccccc}
+%   \hspace*{.3cm}\tikz \node[labelprio1] {$1$}; \hspace*{.3cm} &
+%   \hspace*{.3cm}\tikz \node[labelprio2] {$2$}; \hspace*{.3cm} &
+%   \hspace*{.3cm}\tikz \node[labelprio3] {$3$}; \hspace*{.3cm} &
+%   \vspace*{.5em}\hspace*{.3cm}\raisebox{5pt}{\ldots}\hspace*{.3cm} &
+%   \hspace*{.3cm}\tikz \node[labelprion] {$n$}; \hspace*{.3cm} \\\hline
+%   \multicolumn{2}{l}{
+%   \parbox{1.5cm}{\vspace*{.5em}plus haute\\priorité}} &
+%   %\parbox{1cm}{~} &
+%   \parbox{1cm}{~} &&
+%   \parbox{1.5cm}{\vspace*{.5em}plus basse\\priorité}
+% \end{tabular}
+% \hspace*{-1em}
+% \raisebox{2.2pt}{$\blacktriangleright$}
+
+\begin{tabular}{*{5}{>{\centering}p{1cm}}}
+  \tikz \node[labelprio1] {$1$}; &
+  \tikz \node[labelprio2] {$2$}; &
+  \tikz \node[labelprio3] {$3$}; &
+  \raisebox{5pt}{\ldots} &
+  \tikz \node[labelprion] {$n$};
+\vspace*{.5em} \tabularnewline \hline
+  \multicolumn{2}{l}{\parbox{1.5cm}{\vspace*{.5em}highest\\priority}} &&
+  \multicolumn{2}{r}{\parbox{1.5cm}{\raggedleft\vspace*{.5em}lowest\\priority}}
+\end{tabular}
+\hspace*{-1em}
+\raisebox{2.2pt}{$\blacktriangleright$}
+
+\bigskip
+
+% \only<2-3>{
+\bigskip
+\begin{tikzpicture}
+  \path[use as bounding box] (-0.5,-0.5) rectangle (2.5,1.5);
+  \TSort{(0,0)}{a}{2}{l}
+  \TSort{(2,0)}{b}{2}{r}
+  \THit{a_0}{}{b_0}{.west}{b_1}
+  \THit{a_0}{out=-120,in=180,selfhit}{a_0}{.west}{a_1}
+  \path[bounce]
+  \TBounce{a_0}{bend left}{a_1}{.south}
+  \TBounce{b_0}{bend left}{b_1}{.south}
+  ;
+  \TState{-1}{a_0,b_0}
+  \TState{2-}{a_1,b_0}
+
+  \node[labelprio1] at (-1.5,-0.5) {$1$};
+  \node[labelprio2] at (1,0.25) {$2$};
+\end{tikzpicture}
+
+\bigskip
+
+\f $b_1$ \tval{cannot} be reached
+% }
+\end{center}
+
+% \only<4->{
+% \begin{itemize}
+%   \item Allow to model classes of actions with similar speeds or temporal parameters
+% \end{itemize}
+% \begin{center}
+% \begin{tabular}{*{5}{>{\centering}p{1cm}}}
+%   \tikz \node[labelprio1,labelstocha] {$A$}; &
+%   \tikz \node[labelprio2,labelstocha] {$B$}; &
+%   \tikz \node[labelprio3,labelstocha] {$C$}; &
+%   \raisebox{5pt}{\ldots} &
+%   \tikz \node[labelprion,labelstocha] {$N$};
+% \vspace*{.5em} \tabularnewline \hline
+%   \multicolumn{1}{r}{\parbox{1cm}{\hspace*{-1.7cm}\parbox{2.5cm}{\raggedleft\vspace*{.5em}\tval{instantaneous}}}} &
+%   \multicolumn{2}{l}{\parbox{2cm}{\vspace*{.5em}\tval{very fast}}} &
+%   \multicolumn{2}{r}{\parbox{2cm}{\raggedleft\vspace*{.5em}\tval{very slow}}}
+% \end{tabular}
+% \hspace*{-1em}
+% \raisebox{-.4em}{$\blacktriangleright$}
+% \end{center}
+% }
+
+\end{frame}

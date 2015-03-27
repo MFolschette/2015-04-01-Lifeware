@@ -1,0 +1,105 @@
+% Ajout des actions prioritaires pour avoir une équivalence avec les ADN
+
+\begin{frame}[c]
+  \frametitle{Canonical Process Hitting}
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-5.2,-4) rectangle (5.2,3.5);
+  \planPHstandard
+  \planPHp
+  \planPHan
+  \planPHmult
+  \planPHcanonique
+\end{tikzpicture}
+
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Temporal Shift in Cooperative Sorts}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-0.5,-0.5) rectangle (6.5,4.5);
+  %\path[use as bounding box] (-1,-0.5) rectangle (7.5,5);
+
+  \exphcoopprio{unprio}{}
+
+  \node<5->[process,very thick] at (z_1.center) {?};
+
+  \only<2>{
+    \THit{a_1}{selfhit,hlb}{a_1}{.west}{a_0}
+    \path[bounce,bend right,hlb] \TBounce{a_1}{}{a_0}{.north west} ;
+  }
+  \only<3>{
+    \THit{b_0.south west}{bend left=90,hlb}{a_0}{.west}{a_1}
+    \path[bounce,bend left,hlb] \TBounce{a_0}{}{a_1}{.south west} ;
+  }
+  \only<4>{
+    \THit{b_1}{selfhit,hlb}{b_1}{.west}{b_0}
+    \THit{a_0}{bend right=50,hlb}{b_0}{.west}{b_1}
+    \path[bounce,bend right,hlb] \TBounce{b_1}{}{b_0}{.north west} ;
+    \path[bounce,bend left,hlb] \TBounce{b_0}{}{b_1}{.south west} ;
+  }
+
+  \TState{5-6}{a_0, b_0, ab_0, z_0}
+  \only<6>{
+  \THit{b_0.south west}{hl,bend left=90}{a_0}{.west}{a_1}
+  \path[bounce,bend left,hl] \TBounce{a_0}{}{a_1}{.south west} ;
+  }
+  \TState{7}{a_1, b_0, ab_0, z_0}
+  \only<7>{
+  \THit{a_1}{hl}{ab_0}{.west}{ab_2}
+  \path[bounce,bend left,hl] \TBounce{ab_0}{}{ab_2}{.240} ;
+  }
+  \TState{8}{a_1, b_0, ab_2, z_0}
+  \only<8>{
+  \THit{a_1}{selfhit,hl}{a_1}{.west}{a_0}
+  \path[bounce,bend right,hl] \TBounce{a_1}{}{a_0}{.north west} ;
+  }
+  \TState{9}{a_0, b_0, ab_2, z_0}
+  \only<9>{
+  \THit{a_0}{bend right=50,hl}{b_0}{.west}{b_1}
+  \path[bounce,bend left,hl] \TBounce{b_0}{}{b_1}{.south west} ;
+  }
+  \TState{10}{a_0, b_1, ab_2, z_0}
+  \only<10>{
+  \THit{b_1}{hl}{ab_2}{.200}{ab_3}
+  \path[bounce,bend left,hl] \TBounce{ab_2}{}{ab_3}{.south} ;
+  }
+  \TState{11}{a_0, b_1, ab_3, z_0}
+  \only<11>{
+  \THit{ab_3}{hl}{z_0}{.west}{z_1}
+  \path[bounce,bend left,hl] \TBounce{z_0}{}{z_1}{.south} ;
+  }
+  \TState{12-}{a_0, b_1, ab_3, z_1}
+\end{tikzpicture}
+}\end{center}
+
+\medskip
+
+\tval{Drawback}: the cooperative sorts are too ``loose'' (temporal shift)
+
+\medskip
+
+$ \uncover<5->{\PHstate{a_0, b_0, ab_{00}, z_0}}
+  \uncover<7->{\rightarrow\PHstate{a_1, b_0, ab_{00}, z_0}}
+  \uncover<8->{\rightarrow\PHstate{a_1, b_0, ab_{10}, z_0}}
+  \uncover<9->{\rightarrow\PHstate{a_0, b_0, ab_{10}, z_0}}$
+\\ \qquad
+$ \uncover<10->{\rightarrow\PHstate{a_0, b_1, ab_{10}, z_0}}
+  \uncover<11->{\rightarrow\PHstate{a_0, b_1, \redex{ab_{11}}, z_0}}
+  \uncover<12->{\rightarrow\PHstate{a_0, b_1, \redex{ab_{11}}, \redex{z_1}}}$
+
+\medskip
+
+\uncover<12->{
+\begin{tabular}{ll}
+  Expected behavior: & \ex{$a_1 \wedge b_1$~\tval{simultaneously}} \quad \cad ``in the same state''
+\\
+  Obtained behavior: & \ex{$\mathbf{P}(a_1) \wedge \mathbf{P}(b_1)$} \quad with $\mathbf{P}$ = ``previously''
+\end{tabular}
+}
+\end{frame}

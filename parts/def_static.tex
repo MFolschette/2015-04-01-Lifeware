@@ -1,0 +1,64 @@
+% Présentation de l'analyse statique
+
+\begin{frame}
+  \frametitle{Approximations for the Reachability Analysis}
+  \framesubtitle{\tcite{\cpmrmscs}}
+
+Check reachability properties:
+\begin{center}
+  «~From an initial state $s_0$, is it possible to reach a state $s_n$ where $a_i$ is active?~»
+\end{center}
+Approximations: $P$ and $Q$, built so that \tval{$P \Rightarrow R \Rightarrow Q$}
+
+\begin{center}
+\scalebox{0.6}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-5,-3.5) rectangle (5,3.5);
+  \definecolor{r2}{RGB}{238,10,38}
+
+  %\path<2->[shading=1, inner color=r2, outer color=white] (3.5,-2.8) -- (4.4,3.2) -- (0,3) -- (-4.5,1.4) -- (-2.5,-2.5) -- (0,-3.6) -- (2.8,-2.8);
+  \draw<2->[shading=2, inner color=r2, outer color=white, rounded corners, draw=none] (-6,3.5) rectangle (6,-3.5);
+  %\draw<2->[thick,fill=white] (2.5,-2.1) -- (3,2.5) -- (-2.7,1.3) -- (-2,-2) -- (2.5,-2.1);
+  \draw<2->[thick,fill=white] (-2.8,2) rectangle (2.8,-2);
+  %\draw<6->[thick,fill=lightyellow] (2.5,-2.1) -- (3,2.5) -- (-2.7,1.3) -- (-2,-2) -- (2.5,-2.1);
+  \draw<6->[thick,fill=lightyellow] (-2.8,2) rectangle (2.8,-2);
+
+  \node<2->[text width=3.5cm, color=red] (s1) at (-5,2) {Over-approximation};
+  \path<2->[->,very thick,color=red] (s1.south) edge (-3,1.2);
+  \node<2->[text width=3cm,color=black] (q) at (2.2,2.3) {$\neg Q$};
+
+  %\draw<4->[thick, shading=1, top color=darkgreen, bottom color=green] (.5,-.8) -- (1,0) -- (.3,1) -- (-1,.5) -- (-.5,-.5) -- (.5,-.8);
+  \draw<4->[thick, shading=1, top color=darkgreen, bottom color=green] (-1.5,.7) rectangle (1.5,-.7);;
+  \node<4->[text width=3.5cm,color=darkgreen] (s2) at (5.2,-2.5) {Under-approximation};
+  \node<4->[text width=3cm,color=black] (p) at (1.8,.4) {$P$};
+  \path<4->[->,very thick,color=darkgreen] (s2) edge (1,-.8);
+
+  \node[text width=3cm,align=center,color=darkcyan] (s) at (0,-1.7) {Exact solution};
+  \node<1->[text width=3cm,color=darkcyan] (s0) at (0,0) {};
+  \draw[color=darkcyan, ultra thick] (0,0) ellipse (2 and 1.5);
+  \node[text width=3cm,color=black] (r) at (2,1.2) {$R$};
+
+  \only<3->{
+    \node[point] at (-3.3,-1) {};
+    \node[point] at (2,2.5) {};
+  }
+  \only<5->{
+    \node[point] at (-1,.2) {};
+    \node[point] at (1.1,-.5) {};
+  }
+  \only<7->{
+    \node[point] at (-.5,-1.1) {};
+    \node[point] at (2.5,1) {};
+  }
+\end{tikzpicture}
+}
+\end{center}
+
+\uncover<8->{
+Polynomial complexity in the number of sorts\\
+Exponential complexity in the number of processes in each sort
+\begin{fleches}
+  \item Efficient for big models with few expression levels
+\end{fleches}
+}
+\end{frame}

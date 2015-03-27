@@ -1,0 +1,50 @@
+% Recherche de points fixes par n-cliques
+
+\begin{frame}[c]
+  \frametitle{Static Analysis: Fixed Points}
+  \framesubtitle{\tcite{\cpmrtcsb}}
+
+\tval{Fixed point} = state where no action can be fired
+\begin{fleches}
+  \item avoid couples of processes bounded by an action
+\only<1>{\\\smallskip~}
+\only<2->{\item Hitless Graph \only<3->{\f \tval{n-cliques} = fixed points}}
+\end{fleches}
+
+\bigskip
+\begin{columns}
+\begin{column}{0.5\textwidth}
+
+\begin{center}
+\scalebox{0.7}{
+\begin{tikzpicture}
+\exdefb
+\exdefbfrappes
+\end{tikzpicture}
+}
+\end{center}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+
+\only<2->{
+\begin{center}
+\scalebox{0.7}{
+\tikzstyle{current process}=[process,fill=red]
+\begin{tikzpicture}[hitless graph]
+\exdefb
+\exdefbsf
+\end{tikzpicture}
+\tikzstyle{current process}=[process,fill=blue]
+}
+\end{center}
+}
+
+\end{column}
+\end{columns}
+
+\bigskip
+\pause[6]
+Exponential complexity w.r.t.~the number of sorts
+
+\end{frame}

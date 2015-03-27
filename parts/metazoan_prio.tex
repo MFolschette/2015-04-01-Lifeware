@@ -1,0 +1,190 @@
+% Priorités dans Metazoan
+
+\begin{frame}[t]
+  \frametitle{Use of the Classes of Priorities}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\makenoprio
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-2,0) rectangle (8,6.5);
+  \exmetazoan
+
+  \node[labelprio1] at (2.3,4) {$1$};
+  \node[labelprio1] at (2.6,0.8) {$1$};
+  \node[labelprio2] at (5.5,3.9) {$2$};
+  \node[labelprio2] at (3.5,5.3) {$2$};
+  \node[labelprio3] at (0,2.5) {$3$};
+  \node[labelprio3] at (0.8,5.8) {$3$};
+  %\node[labelprio4] at (1.5,1.8) {$4$};
+  
+  \TState{3,9,15}{f_1, a_0, c_0, fc_2}
+  \TState{4,10}{f_1, a_1, c_0, fc_2}
+  \TState{5,11}{f_1, a_1, c_1, fc_2}
+  \TState{6,12}{f_1, a_1, c_1, fc_3}
+  \TState{7,13}{f_1, a_0, c_1, fc_3}
+  \TState{8,14}{f_1, a_0, c_0, fc_3}
+\end{tikzpicture}
+
+\pause[2]
+\vspace*{-2.5cm}
+\hfill
+\begin{tikzpicture}
+  \tikz \foreach \x in {0,...,12}
+    \draw[dotted] (\x/4,0) -- (\x/4,1.5);
+
+  \draw[dotted] (0,0) -- (-3,0);
+  \draw[dotted] (0,1.5) -- (-3,1.5);
+
+  \only<4->{\fill (-3,0) rectangle (-2.75,1.5);}
+  \only<5->{\fill (-2.75,0) rectangle (-2.5,1.5);}
+  \only<6->{\fill (-2.5,0) rectangle (-2.25,1.5);}
+  \only<7->{\fill[gray!30] (-2.25,0) rectangle (-2,1.5);}
+  \only<8->{\fill[gray!30] (-2,0) rectangle (-1.75,1.5);}
+  \only<9->{\fill[gray!30] (-1.75,0) rectangle (-1.5,1.5);}
+  \only<10->{\fill (-1.5,0) rectangle (-1.25,1.5);}
+  \only<11->{\fill (-1.25,0) rectangle (-1,1.5);}
+  \only<12->{\fill (-1,0) rectangle (-0.75,1.5);}
+  \only<13->{\fill[gray!30] (-0.75,0) rectangle (-0.5,1.5);}
+  \only<14->{\fill[gray!30] (-0.5,0) rectangle (-0.25,1.5);}
+  \only<15->{\fill[gray!30] (-0.25,0) rectangle (0,1.5);}
+\end{tikzpicture}
+
+\pause[15]
+%\vspace*{.3cm}
+\bigskip
+\begin{flushright}
+  \f Only one possible stationary behavior
+\end{flushright}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{Abstraction of Temporal Parameters}
+  \framesubtitle{\tcite{\paulevephd}}
+
+\begin{itemize}
+  \item Simulation with stochastic parameters:
+\end{itemize}
+
+\medskip
+
+\scalebox{.8}{\input{plots/metazoan-plot-a}}
+\scalebox{.8}{\input{plots/metazoan-plot-c}}
+\scalebox{.8}{\input{plots/metazoan-plot-f}}
+
+\bigskip
+\bigskip
+
+\begin{itemize}
+  \item Other possible analysis: stochastic model checkers (PRISM)
+  \begin{itemize}
+    \item[\f] But combinatoric explosion: PRISM fails for more than 5 components
+  \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Addition of classes of priorities}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\bigskip
+\begin{itemize}
+  \item Each action is associated to a discrete priority
+  \item An action is playable only if no other action with higher priority is playable
+\end{itemize}
+
+\medskip
+
+\begin{center}
+
+\begin{tabular}{*{5}{>{\centering}p{1cm}}}
+  \tikz \node[labelprio1] {$1$}; &
+  \tikz \node[labelprio2] {$2$}; &
+  \tikz \node[labelprio3] {$3$}; &
+  \raisebox{5pt}{\ldots} &
+  \tikz \node[labelprion] {$n$};
+\vspace*{.5em} \tabularnewline \hline
+  \multicolumn{2}{l}{\parbox{1.5cm}{\vspace*{.5em}highest\\priority}} &&
+  \multicolumn{2}{r}{\parbox{1.5cm}{\raggedleft\vspace*{.5em}lowest\\priority}}
+\end{tabular}
+\hspace*{-1em}
+\raisebox{2.2pt}{$\blacktriangleright$}
+
+\bigskip
+\end{center}
+
+\begin{itemize}
+  \item Allow to model classes of actions with similar speeds or temporal parameters
+\end{itemize}
+\begin{center}
+\begin{tabular}{*{5}{>{\centering}p{1cm}}}
+  \tikz \node[labelprio1,labelstocha] {$A$}; &
+  \tikz \node[labelprio2,labelstocha] {$B$}; &
+  \tikz \node[labelprio3,labelstocha] {$C$}; &
+  \raisebox{5pt}{\ldots} &
+  \tikz \node[labelprion,labelstocha] {$N$};
+\vspace*{.5em} \tabularnewline \hline
+  \multicolumn{1}{r}{\parbox{1cm}{\hspace*{-1.7cm}\parbox{2.5cm}{\raggedleft\vspace*{.5em}\tval{instantaneous}}}} &
+  \multicolumn{2}{l}{\parbox{2cm}{\vspace*{.5em}\tval{very fast}}} &
+  \multicolumn{2}{r}{\parbox{2cm}{\raggedleft\vspace*{.5em}\tval{very slow}}}
+\end{tabular}
+\hspace*{-1em}
+\raisebox{-.4em}{$\blacktriangleright$}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Limitation of the Classes of Priorities}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\makenoprio
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-2,0) rectangle (8,6.5);
+  \exmetazoan
+  
+  \only<2>{
+    \THit{f_1.north east}{selfhit, min distance=30, bend left, out=150, in=90,hlr}{f_1}{.south east}{f_0}
+    \path[bounce, bend left=50]
+      \TBounce{f_1}{hlr}{f_0}{.north east};
+  }
+  
+  \node[labelprio1] at (2.3,4) {$1$};
+  \node[labelprio1] at (2.6,0.8) {$1$};
+  \node[labelprio2] at (5.5,3.9) {$2$};
+  \node[labelprio2] at (3.5,5.3) {$2$};
+  \node[labelprio3] at (0,2.5) {$3$};
+  \node[labelprio3] at (0.8,5.8) {$3$};
+  
+  \node[labelprio3] at (2.2,2.5) {$3$};
+  \node[labelprio4] at (1.5,1.8) {$4$};
+  \node<3->[labelprio3] at (1.55,1.8) {$3$};
+  
+%   \TState{3,9,15}{f_1, a_0, c_0, fc_2}
+%   \TState{4,10}{f_1, a_1, c_0, fc_2}
+%   \TState{5,11}{f_1, a_1, c_1, fc_2}
+%   \TState{6,12}{f_1, a_1, c_1, fc_3}
+%   \TState{7,13}{f_1, a_0, c_1, fc_3}
+%   \TState{8,14}{f_1, a_0, c_0, fc_3}
+\end{tikzpicture}
+
+\pause[2]
+\vspace*{-1cm}
+%\vspace*{.3cm}
+\bigskip
+\begin{flushright}
+  \f Memoryless (no accumulation)\\
+  Unplayable action: $\PHfrappe{f_1}{f_1}{f_0}$
+\end{flushright}
+
+\end{frame}

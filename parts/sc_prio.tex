@@ -1,0 +1,134 @@
+
+\begin{frame}[t]
+  \frametitle{Canonical Process Hitting}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-0.5,-0.5) rectangle (6.5,4.5);
+
+  \draw[draw=none, fill=blue!15] (2,2.1) ellipse (15pt and 2cm);
+  \draw[draw=none, fill=red!15] (-1,2) ellipse (22pt and 10pt);
+  \exphcoopprio{prio}{}
+  \node[labelprio1] at (2,3.7) {$1$};
+  
+  \node[labelprio2] at (-.9,4.7) {$2$};  % a 1 -> a 1 0
+  \node[labelprio2] at (-1.4,2) {$2$};  % b 0 -> a 0 1
+%  \node[labelprio2] at (.7,2) {$2$};  % b 1 -> b 1 0
+  \node[labelprio2] at (5.8,2.6) {$2$};  % ab 11 -> z 0 1
+
+  \node[process,very thick] at (z_1.center) {?};
+
+  \TState{3}{a_0, b_0, ab_0, z_0}
+  \only<3>{
+  \THit{b_0.south west}{hl,bend left=90}{a_0}{.west}{a_1}
+  \path[bounce,bend left,hl] \TBounce{a_0}{}{a_1}{.south west} ;
+  }
+  \TState{4}{a_1, b_0, ab_0, z_0}
+  \only<4>{
+  \THit{a_1}{prio,hl}{ab_0}{.west}{ab_2}
+  \path[bounce,bend left,hl] \TBounce{ab_0}{}{ab_2}{.240} ;
+  }
+  \TState{5}{a_1, b_0, ab_2, z_0}
+  \only<5>{
+  \THit{a_1}{selfhit,hl}{a_1}{.west}{a_0}
+  \path[bounce,bend right,hl] \TBounce{a_1}{}{a_0}{.north west} ;
+  }
+  \TState{6}{a_0, b_0, ab_2, z_0}
+  \only<6>{
+  \THit{a_0}{prio,hl}{ab_2}{.160}{ab_0}
+  \path[bounce,bend right,hl] \TBounce{ab_2}{}{ab_0}{.north west} ;
+  }
+  \TState{7}{a_0, b_0, ab_0, z_0}
+  \only<7>{
+  \THit{a_0}{bend right=50,hl}{b_0}{.west}{b_1}
+  \path[bounce,bend left,hl] \TBounce{b_0}{}{b_1}{.south west} ;
+  }
+  \TState{8}{a_0, b_1, ab_0, z_0}
+  \only<8>{
+  \THit{b_1}{prio,hl}{ab_0}{.210}{ab_1}
+  \path[bounce,bend left] \TBounce{ab_0}{hl}{ab_1}{.240} ;
+  }
+  \TState{9-}{a_0, b_1, ab_1, z_0}
+\end{tikzpicture}
+}\end{center}
+
+%\newcommand{\intextpriolabel}[2]{\raisebox{-3pt}{\scalebox{#1}{\tikz \node[labelprio#2] {$#2$};}}}
+
+\begin{itemize}
+  \item Primary actions (updating cooperative sorts)
+    \f \raisebox{-2pt}{\scalebox{\scaleex}{\tikz \node[labelprio1] {$1$};}}
+    \begin{itemize}
+      \item[] non-biological / non-controllable actions
+    \end{itemize}
+  \item Secondary actions (all the other ones)
+    \f \raisebox{-2pt}{\scalebox{\scaleex}{\tikz \node[labelprio2] {$2$};}}
+    \begin{itemize}
+      \item[] biological / controllable actions / with delays
+    \end{itemize}
+\end{itemize}
+\pause
+$\Rightarrow$ Whenever a secondary action is played, all cooperative sorts are already updated
+
+%\medskip
+%Now, $z_1$ cannot be reached from $\PHstate{a_0, b_0, ab_{00}, z_0}$
+
+\medskip
+$ \uncover<3->{\PHstate{a_0, b_0, ab_{00}, z_0}}
+  \uncover<4->{\rightarrow\PHstate{a_1, b_0, ab_{00}, z_0}}
+  \uncover<5->{\rightarrow\PHstate{a_1, b_0, ab_{10}, z_0}}
+  \uncover<6->{\rightarrow\PHstate{a_0, b_0, ab_{10}, z_0}}$
+\\ \qquad
+$ \uncover<7->{\rightarrow\PHstate{a_0, b_0, \ex{ab_{00}}, z_0}}
+  \uncover<8->{\rightarrow\PHstate{a_0, b_1, \ex{ab_{00}}, z_0}}
+  \uncover<9->{\rightarrow\PHstate{a_0, b_1, \ex{ab_{01}}, z_0}}$
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Canonical Process Hitting with Synchronous Actions}
+%  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\begin{center}\scalebox{\scaleex}{
+  \begin{tikzpicture}[apdotsimple/.style={apdot}]
+    \TSort{(0,0)}{a}{2}{l}
+    \TSort{(0,3)}{b}{2}{l}
+    \TSort{(4,2)}{z}{2}{r}
+    
+    \TActionPlur{a_1, b_1}{z_0.west}{z_1.south west}{}{2,2}{left}
+    
+%    \TAction{a_1}{a_1.west}{a_0.north west}{selfhit}{right}
+    \TActionPlur{}{a_1.east}{a_0.north east}{}{1.5,0.75}{left}
+%    \TAction{b_1}{b_1.west}{b_0.north west}{selfhit}{right}
+    \TActionPlur{}{b_1.east}{b_0.north east}{}{1.5,4.25}{left}
+    \TAction{a_0.south west}{b_0.west}{b_1.south west}{bend left=90}{left}
+    \TAction{b_0}{a_0.west}{a_1.south west}{bend right=50}{left}
+    
+  \TState{1-}{a_0, b_0, z_0}
+  \end{tikzpicture}
+}\end{center}
+
+\begin{itemize}
+  \item Equivalent dynamics
+  \item Sub-class of synchronous automata networks
+  \item No priorities (no ill-formed model)
+  \item No interfering updates and less intertwining
+\end{itemize}
+
+% \pause
+% $\Rightarrow$ Whenever a secondary action is played, all cooperative sorts are already updated
+% 
+% %\medskip
+% %Now, $z_1$ cannot be reached from $\PHstate{a_0, b_0, ab_{00}, z_0}$
+% 
+% \medskip
+% $ \uncover<3->{\PHstate{a_0, b_0, ab_{00}, z_0}}
+%   \uncover<4->{\rightarrow\PHstate{a_1, b_0, ab_{00}, z_0}}
+%   \uncover<5->{\rightarrow\PHstate{a_1, b_0, ab_{10}, z_0}}
+%   \uncover<6->{\rightarrow\PHstate{a_0, b_0, ab_{10}, z_0}}$
+% \\ \qquad
+% $ \uncover<7->{\rightarrow\PHstate{a_0, b_0, \ex{ab_{00}}, z_0}}
+%   \uncover<8->{\rightarrow\PHstate{a_0, b_1, \ex{ab_{00}}, z_0}}
+%   \uncover<9->{\rightarrow\PHstate{a_0, b_1, \ex{ab_{01}}, z_0}}$
+\end{frame}

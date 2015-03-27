@@ -1,0 +1,159 @@
+% Présentation de Metazoan
+
+\begin{frame}[c]
+  \frametitle{Standard Process Hitting}
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-5.2,-4) rectangle (5.2,3.5);
+  \planPHstandard
+  \planPHp[stillhidden]
+  \planPHan[stillhidden]
+  \planPHmult[stillhidden]
+  \planPHcanonique[stillhidden]
+\end{tikzpicture}
+
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Permissiveness of the Standard Dynamics}
+  \framesubtitle{Model extracted from \tcite{François \textit{et al.} in Molecular Systems Biology, 2007}}
+
+\makenoprio
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,0) rectangle (8,6.5);
+  
+  \draw<2>[very thick, darkgreen, fill=green!10] (7,4.5) ellipse [x radius=1cm,y radius=2cm];
+  \node<2>[darkgreen, align=flush left, text width=3cm] at (7.7,2) {\Large \tval{Pigment productions}};
+  \draw<2> (8,4) node[anchor=west, darkgreen] {0 = inactive}
+           (8,5) node[anchor=west, darkgreen] {1 = production};
+  \draw<3-> (7.75,4.02) node[anchor=west, darkgreen] {= inactive}
+           (7.75,5) node[anchor=west, darkgreen] {= production};
+  
+  \draw<3>[very thick, darkred, fill=red!10] (0,4.7) ellipse [x radius=1cm,y radius=1.5cm];
+  \node<3>[darkred, align=flush left, text width=2cm, anchor=west] at (1,5.8) {\Large \tval{Clock}};
+  
+  \draw<4>[very thick, darkviolet, fill=violet!10] (1,0.5) ellipse [x radius=1cm,y radius=1.5cm];
+  \node<4>[darkviolet, align=flush left, anchor=west] at (2,-.3) {\Large \tval{Wavefront progression}};
+  \draw<4> (0,0) node[anchor=east, darkviolet] {0 = “Off”}
+           (0,1) node[anchor=east, darkviolet] {1 = “On”};
+  
+  \exmetazoan
+  
+%   \only<-4>{
+%     \THit{f_1.north east}{selfhit, min distance=30, bend left, out=150, in=90}{f_1}{.south east}{f_0}
+%     \path[bounce, bend left=50]
+%       \TBounce{f_1}{}{f_0}{.north east};
+% %   }
+%   
+% %   \only<5>{
+% %     \THit{f_1.north east}{selfhit, min distance=30, bend left, out=150, in=90,hlr}{f_1}{.south east}{f_0}
+% %     \path[bounce, bend left=50]
+% %       \TBounce{f_1}{hlr}{f_0}{.north east};
+% %   }
+%   
+% %   \only<-5>{
+%     \THit{f_0.east}{bend right=60, in=-140}{c_1}{.south east}{c_0}
+%     \path[bounce, bend left=50]
+%       \TBounce{c_1}{}{c_0}{.north east};
+%   }
+  
+%   \only<6>{
+%     \THit{f_0.east}{bend right=60, in=-140, hlr}{c_1}{.south east}{c_0}
+%     \path[bounce, bend left=50]
+%       \TBounce{c_1}{hlr}{c_0}{.north east};
+%   }
+  
+  \only<7,13,26,28,30>{
+    \THit{fc_2}{\prio, hl}{a_0}{.west}{a_1} \path[bounce, bend left=50, hl] \TBounce{a_0}{\prio}{a_1}{.south west};
+  }
+  \only<8,14,21,23,25,32>{
+    \THit{f_1}{bend left=30, in=90, hl}{c_0}{.west}{c_1} \path[bounce, bend left=50, hl] \TBounce{c_0}{}{c_1}{.south west};
+  }
+  \only<9,12,15,18>{
+    \path (0.8, 4.5) edge[\superprio,coopupdate,hl] (3.2, 3);
+  }
+  \only<10,16,27,29>{
+    \THit{c_1}{\prio, hl}{a_1}{.west}{a_0} \path[bounce, bend right=50, hl] \TBounce{a_1}{\prio}{a_0}{.north west};
+  }
+  \only<11,17,22,24,31>{
+    \THit{c_1}{selfhit, hl}{c_1}{.west}{c_0} \path[bounce, bend right=50, hl] \TBounce{c_1}{}{c_0}{.north west};
+  }
+  \only<19>{
+    \THit{f_1.north east}{selfhit, min distance=30, bend left, out=150, in=90, hl}{f_1}{.south east}{f_0} \path[bounce, bend left=50, hl] \TBounce{f_1}{}{f_0}{.north east};
+  }
+  
+  \TState{6-7,13,19,21,23}{f_1, a_0, c_0, fc_2}
+  \TState{8,14}{f_1, a_1, c_0, fc_2}
+  \TState{9,15}{f_1, a_1, c_1, fc_2}
+  \TState{10,16}{f_1, a_1, c_1, fc_3}
+  \TState{11,17}{f_1, a_0, c_1, fc_3}
+  \TState{12,18}{f_1, a_0, c_0, fc_3}
+  \TState{20}{f_0, a_0, c_0, fc_2}
+
+  \TState{22,24,26}{f_1, a_0, c_1, fc_2}
+  \TState{25}{f_1, a_0, c_0, fc_2}
+
+  \TState{27,29,31,33}{f_1, a_1, c_1, fc_2}
+  \TState{28,30}{f_1, a_0, c_1, fc_2}
+  \TState{32}{f_1, a_1, c_0, fc_2}
+\end{tikzpicture}
+
+\pause[7]
+
+\vspace*{-3cm}
+\hfill
+\begin{tikzpicture}
+
+\tikz \foreach \x in {0,...,12}
+  \draw[dotted] (\x/4,0) -- (\x/4,1.5);
+
+\draw[dotted] (0,0) -- (-3,0);
+\draw[dotted] (0,1.5) -- (-3,1.5);
+
+\only<8->{\fill (-3,0) rectangle (-2.75,1.5);}
+\only<9->{\fill (-2.75,0) rectangle (-2.5,1.5);}
+\only<10->{\fill (-2.5,0) rectangle (-2.25,1.5);}
+\only<11->{\fill[gray!30] (-2.25,0) rectangle (-2,1.5);}
+\only<12->{\fill[gray!30] (-2,0) rectangle (-1.75,1.5);}
+\only<13->{\fill[gray!30] (-1.75,0) rectangle (-1.5,1.5);}
+\only<14->{\fill (-1.5,0) rectangle (-1.25,1.5);}
+\only<15->{\fill (-1.25,0) rectangle (-1,1.5);}
+\only<16->{\fill (-1,0) rectangle (-0.75,1.5);}
+\only<17->{\fill[gray!30] (-0.75,0) rectangle (-0.5,1.5);}
+\only<18->{\fill[gray!30] (-0.5,0) rectangle (-0.25,1.5);}
+\only<19->{\fill[gray!30] (-0.25,0) rectangle (0,1.5);}
+
+\end{tikzpicture}
+
+\pause[21]
+\vspace*{.5cm}
+\hfill
+\begin{tikzpicture}
+
+\tikz \foreach \x in {0,...,12}
+  \draw[dotted] (\x/4,0) -- (\x/4,1.5);
+
+\draw[dotted] (0,0) -- (-3,0);
+\draw[dotted] (0,1.5) -- (-3,1.5);
+
+\only<22->{\fill[gray!30] (-3,0) rectangle (-2.75,1.5);}
+\only<23->{\fill[gray!30] (-2.75,0) rectangle (-2.5,1.5);}
+\only<24->{\fill[gray!30] (-2.5,0) rectangle (-2.25,1.5);}
+\only<25->{\fill[gray!30] (-2.25,0) rectangle (-2,1.5);}
+\only<26->{\fill[gray!30] (-2,0) rectangle (-1.75,1.5);}
+\only<27->{\fill (-1.75,0) rectangle (-1.5,1.5);}
+\only<28->{\fill[gray!30] (-1.5,0) rectangle (-1.25,1.5);}
+\only<29->{\fill (-1.25,0) rectangle (-1,1.5);}
+\only<30->{\fill[gray!30] (-1,0) rectangle (-0.75,1.5);}
+\only<31->{\fill (-0.75,0) rectangle (-0.5,1.5);}
+\only<32->{\fill (-0.5,0) rectangle (-0.25,1.5);}
+\only<33->{\fill (-0.25,0) rectangle (0,1.5);}
+
+\end{tikzpicture}
+
+\pause[15]
+
+\end{frame}

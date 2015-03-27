@@ -1,0 +1,21 @@
+% Arcs neutralisants sur Metazoan
+
+\begin{frame}[t]
+  \frametitle{Use of Neutralizing Edges}
+
+\makenoprio
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-2,0) rectangle (8,6.5);
+  \exmetazoan
+
+  \node (nea1) at (3.5,5) {};
+  \node[dotne] (nea2) at (0.6,5.9) {};
+  \draw[linene] (nea1) to[out=120, in=20] (nea2);
+
+  \node (neb1) at (5.8,3.6) {};
+  \node[dotne] (neb2) at (-0.5,2.5) {};
+  \draw[linene] (neb1) to[out=-70, in=250, min distance=160] (neb2);
+\end{tikzpicture}
+
+\end{frame}

@@ -1,0 +1,123 @@
+
+\begin{frame}[c]
+  \frametitle{Formal Translation Into Canonical Form}
+
+\makenoprio
+
+\vspace*{.5cm}
+\scalebox{.9}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-5.75,0) rectangle (5.75,5.5);
+  \TSort{(-5,4)}{c}{2}{l}
+  \TSort{(0,1)}{f}{2}{l}
+  \TSort{(5,4)}{a}{2}{r}
+
+  \TSetTick{fc}{0}{00}
+  \TSetTick{fc}{1}{01}
+  \TSetTick{fc}{2}{10}
+  \TSetTick{fc}{3}{11}
+  \TSort{(3,0)}{fc}{4}{r}
+  
+  \THit{fc_2}{}{a_0}{.south west}{a_1}
+  \path[bounce, bend left=60]
+    \TBounce{a_0}{}{a_1}{.south west};
+  
+  \THit{c_1.north east}{}{a_1}{.west}{a_0}
+  \path[bounce, bend right=50]
+    \TBounce{a_1}{}{a_0}{.north west};
+  
+  \path (0.8, 1.5) edge[\prio,coopupdate] (2.2, 1.5);
+  \path (-4.3, 4.5) edge[\prio,coopupdate] (2.2, 2.5);
+  
+  \only<1>{
+    \THit{c_1.north}{selfhit}{c_1}{.west}{c_0}
+    \path[bounce, bend right=50]
+      \TBounce{c_1}{}{c_0}{.north west};
+  }
+  
+  \only<2>{
+    \THit{c_1.north}{selfhit,hlr}{c_1}{.west}{c_0}
+    \path[bounce, bend right=50]
+      \TBounce{c_1}{hlr}{c_0}{.north west};
+  }
+  
+  \only<-2>{
+    \node[labelprio3] at (-4.4,6) {$3$};
+  }
+  
+  \only<3>{
+    \THit{a_0.west}{hlv}{c_1}{.east}{c_0}
+    \path[bounce, bend left=50]
+      \TBounce{c_1}{hlv}{c_0}{.north east};
+    \node[labelprio2] at (0.5,4.7) {$2$};
+  }
+  
+  \only<4->{
+    \THit{a_0.west}{}{c_1}{.east}{c_0}
+    \path[bounce, bend left=50]
+      \TBounce{c_1}{}{c_0}{.north east};
+    \node[labelprio2] at (0.5,4.7) {$2$};
+  }
+  
+  \only<-4>{
+    \node[labelprio3] at (-3,2.3) {$3$};
+  }
+  
+  \only<-3>{
+    \THit{f_1}{bend left=30, in=90}{c_0}{.west}{c_1}
+    \path[bounce, bend left=50]
+      \TBounce{c_0}{}{c_1}{.south west};
+  }
+  
+  \only<4>{
+    \THit{f_1}{bend left=30, in=90, hlr}{c_0}{.west}{c_1}
+    \path[bounce, bend left=50]
+      \TBounce{c_0}{hlr}{c_1}{.south west};
+  }
+  
+  \only<5->{
+    \TSetTick{fa}{0}{00}
+    \TSetTick{fa}{1}{01}
+    \TSetTick{fa}{2}{10}
+    \TSetTick{fa}{3}{11}
+    \TSort{(-3,0)}{fa}{4}{l}
+    
+    \path (-0.8, 1.5) edge[\prio,coopupdate] (-2.2, 1.5);
+    \path (4.3, 4.5) edge[\prio,coopupdate] (-2.2, 2.5);
+    
+    \only<5>{
+      \THit{fa_3}{hlv}{c_0}{.east}{c_1}
+      \path[bounce, bend right=50]
+        \TBounce{c_0}{hlv}{c_1}{.south east};
+    }
+    
+    \only<6->{
+      \THit{fa_3}{}{c_0}{.east}{c_1}
+      \path[bounce, bend right=50]
+        \TBounce{c_0}{}{c_1}{.south east};
+    }
+  
+    \node[labelprio1] at (-1.5,3) {$1$};
+    \node[labelprio1] at (-1.5,1.8) {$1$};
+    \node[labelprio2] at (-4,3.85) {$2$};
+  }
+  
+  \node[labelprio1] at (1.5,3) {$1$};
+  \node[labelprio1] at (1.5,1.8) {$1$};
+
+  \node[labelprio2] at (0,5.4) {$2$};
+  \node[labelprio2] at (4.4,3) {$2$};
+\end{tikzpicture}
+}
+
+\pause[6]
+\vspace{.7cm}
+\begin{center}
+  \f Same dynamics (with supplemental cooperative sorts)
+  
+  \medskip
+  \f The canonical form can be computed for all Process Hitting extensions,\\
+    with classes of priorities, neutralizing edges or synchronous actions
+\end{center}
+
+\end{frame}

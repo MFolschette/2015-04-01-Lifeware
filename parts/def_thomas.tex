@@ -1,0 +1,150 @@
+% Définition du Réseaux Discrets Asynchrones
+
+\newcommand{\Fadn}{\mathbb{F}}
+\newcommand{\Eadn}{\mathbb{E}}
+\newcommand{\SGadn}{\mathrm{G}}
+
+\begin{frame}[t]
+  \frametitle{Discrete Networks / Thomas Modeling}
+  \framesubtitle{\tcite{\citekauffman}\\\tcite{\citethomas}}
+
+\begin{itemize}
+  \item A set of components \qex{$N = \{ a, b, z \}$}
+\uncover<2->{
+  \item A set of discrete expression levels for each component \qex{$z \in \Fadn^z = \segm{0}{2}$}
+  \item The set of global states \qex{$\Fadn = \Fadn^a \times \Fadn^b \times \Fadn^z$}
+}
+\uncover<3->{
+  \item An evolution function for each component \qex{$f^z : \Fadn \rightarrow \Fadn^z$}
+}
+\uncover<4->{
+  \item Signs and thresholds on the edges \qex{$a \xrightarrow{+1}z$}
+\end{itemize}
+}
+
+\uncover<3->{
+\begin{center}
+\begin{tabular}{ccc}
+%  \ex{$f^a = \neg b$} & \ex{$f^b = b \vee \neg a$} & \ex{$f^z = a + b$} \vspace{.5em}\\
+  \begin{tabular}[t]{c|c}
+    $b$ & $f^a(b)$ \\
+  \hline
+    $0$ & $\mathbf{1}$ \\
+    $1$ & $\mathbf{0}$ \\
+  \end{tabular}
+&
+  \begin{tabular}[t]{cc|c}
+    $a$ & $b$ & $f^b(a, b)$ \\
+  \hline
+    $0$ & $0$ & $\mathbf{1}$ \\
+    $0$ & $1$ & $\mathbf{1}$ \\
+    $1$ & $0$ & $\mathbf{0}$ \\
+    $1$ & $1$ & $\mathbf{1}$
+  \end{tabular}
+&
+  \begin{tabular}[t]{cc|c}
+    $a$ & $b$ & $f^z(a, b)$ \\
+  \hline
+    $0$ & $0$ & $\mathbf{0}$ \\
+    $0$ & $1$ & $\mathbf{1}$ \\
+    $1$ & $0$ & $\mathbf{1}$ \\
+    $1$ & $1$ & $\mathbf{2}$
+  \end{tabular}
+\end{tabular}
+}
+
+\bigskip
+
+\begin{tikzpicture}[adn]
+  \path[use as bounding box] (-0.7,-0.7) rectangle (2.5,2);
+  \node[inner sep=0] (z) at (2,0.75) {z};
+  \node[inner sep=0] (a) at (0,1.5) {a};
+  \node[inner sep=0] (b) at (0,0) {b};
+  \path<2->
+    node[alabel, above=-1em of a] {$\segm{0}{1}$}
+    node[alabel, below=-1em of b] {$\segm{0}{1}$}
+    node[alabel, below=-1em of z] {$\segm{0}{2}$};
+  \path<3->
+    (a) edge[bend right=15] (b)
+    (b) edge[bend right=15] (a)
+    (b) edge[loop left] (b)
+    (a) edge (z)
+    (b) edge (z);
+  \path<4->
+    (a) edge[draw=none,bend right=15] node[alabel,left=-1pt] {$-1$} (b)
+    (b) edge[draw=none,bend right=15] node[alabel,right=-3pt] {$-1$} (a)
+    (b) edge[draw=none,loop left] node[alabel,left=-2pt] {$+1$} (b)
+    (a) edge[draw=none] node[alabel,above=-2pt] {$+1$} (z)
+    (b) edge[draw=none] node[alabel,below=-2pt] {$+1$} (z);
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{Analysis of Thomas Modeling}
+
+The State graph is computed in a unitary and asynchronous fashion
+\begin{center}
+\scalebox{.8}{
+\begin{tikzpicture}[stategraph]
+  \node (000) {$\RRBetat{a_0,b_0,z_0}$};
+  \node[right of=000] (001) {$\RRBetat{a_0,b_0,z_1}$};
+  \node[right of=001] (002) {$\RRBetat{a_0,b_0,z_2}$};
+  
+  \node[below of=000, node distance=1.7cm] (100) {$\RRBetat{a_1,b_0,z_0}$};
+  \node[right of=100] (101) {$\RRBetat{a_1,b_0,z_1}$};
+  \node[right of=101] (102) {$\RRBetat{a_1,b_0,z_2}$};
+  
+  \node[at=(000), yshift=-.8cm, xshift=1.6cm] (010) {$\RRBetat{a_0,b_1,z_0}$};
+  \node[right of=010] (011) {$\RRBetat{a_0,b_1,z_1}$};
+  \node[right of=011] (012) {$\RRBetat{a_0,b_1,z_2}$};
+  
+  \node[at=(010), yshift=-1.7cm] (110) {$\RRBetat{a_1,b_1,z_0}$};
+  \node[right of=110] (111) {$\RRBetat{a_1,b_1,z_1}$};
+  \node[right of=111] (112) {$\RRBetat{a_1,b_1,z_2}$};
+  
+  \path
+    (000) edge (100) edge (010)
+    (001) edge (000) edge (101) edge (011)
+    (002) edge (102) edge (012) edge (001)
+    (010) edge (011)
+  % (011)
+    (012) edge (011)
+    (100) edge (101)
+  % (101)
+    (102) edge (101)
+    (110) edge (010) edge (111)
+    (111) edge (011) edge (112)
+    (112) edge (012)
+  ;
+\end{tikzpicture}
+}
+\end{center}
+\f \tval{Exponential} size in the number of components
+
+\pause
+\bigskip
+Some works all to link the structure of the model and some dynamic properties:
+\begin{itemize}
+  \item \tval{Thomas' conjectures} (conditions for multi-stationarity or sustained oscillations)
+  \begin{itemize}
+    \item Boolean case: \tcite{\citeremy}
+    \item Multivalued case: \tcite{\citerichardcomet}
+  \end{itemize}
+\end{itemize}
+
+\pause
+\medskip
+But reachability properties require to compute the whole state graph:\\
+Example: \ex{From the initial state $(a, b, z) = (0, 0, 0)$, is it possible to reach $z = 2$?}
+\begin{itemize}
+  \item \tval{Temporal logics}
+  \begin{itemize}
+    \item CTL: \tcite{\citesmbionet}
+    \item LTL: \tcite{\citeito}
+  \end{itemize}
+\end{itemize}
+\end{frame}

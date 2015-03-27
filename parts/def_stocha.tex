@@ -1,0 +1,130 @@
+% Propriétés stochastiques
+
+%\newcommand{\stochaa}{{\footnotesize $\spadesuit$}}
+%\newcommand{\stochab}{{\footnotesize $\clubsuit$}}
+\newcommand{\stochaa}{A}
+\newcommand{\stochab}{B}
+\newcommand{\stochainf}{{\small $\infty$}}
+
+\begin{frame}[c]
+  \frametitle{Stochastic Parameters}
+  \framesubtitle{\tcite{\cpmrtcsb}}
+
+\begin{itemize}
+  \item Introduction of temporal properties
+  \item Stochastic parameters $(r,sa)$ equivalent to a \tval{firing interval} $[d;D]$
+\end{itemize}
+
+\bigskip
+\begin{columns}
+\begin{column}{0.5\textwidth}
+
+\vspace*{-2em}
+\scalebox{0.9}{
+\begin{tikzpicture}[plot,xscale=0.35,yscale=1]
+%  \path[draw,use as bounding box] (-.5,-.5) rectangle (16,.5);
+  \draw[axe] (0,0) -- (15.5,0) node[right] {$t$};
+  \draw[axe] (0,0) -- (0,1);
+  \draw[ticks] (0,0) node[below] {$0$};
+  \draw[mean] (4,0) -- (4,0.9) node[right]{$\frac{1}{r}$};
+  \draw[dashed] (0.10127,0) -- (0.10127,0.9) node[right] {$d$} (14.75552,0) --
+  (14.75552,0.9) node[left] {$D$};
+  \pgfplothandlerlineto
+  \pgfplotxyfile{plots/BioAtlanSTIC-0409/erlang-0.25-1.table}
+  \pgfusepath{stroke}
+  \draw[interval] (0.10127,0) -- (14.75552,0);
+\end{tikzpicture}
+}
+
+\scalebox{0.9}{
+\begin{tikzpicture}[plot,xscale=0.35,yscale=1]
+  \draw[axe] (0,0) -- (15.5,0) node[right] {$t$};
+  \draw[axe] (0,0) -- (0,1);
+  \draw[ticks] (0,0) node[below] {$0$};
+  \draw[mean] (4,0) -- (4,0.9) node[right]{$\frac{1}{r}$};
+  \draw[dashed] (1.29879,0) -- (1.29879,0.9) node[right] {$d$} (8.19327,0) --
+  (8.19327,0.9) node[left] {$D$};
+  \pgfplothandlerlineto
+  \pgfplotxyfile{plots/BioAtlanSTIC-0409/erlang-0.25-5.table}
+  \pgfusepath{stroke}
+  \draw[interval] (1.29879,0) -- (8.19327,0);
+\end{tikzpicture}
+}
+
+\scalebox{0.9}{
+\begin{tikzpicture}[plot,xscale=0.35,yscale=1]
+  \draw[axe] (0,0) -- (15.5,0) node[right] {$t$};
+  \draw[axe] (0,0) -- (0,1);
+  \draw[ticks] (0,0) node[below] {$0$};
+  \draw[mean] (4,0) -- (4,0.9) node[right]{$\frac{1}{r}$};
+  \draw[dashed] (2.96888,0) -- (2.96888,0.9) node[left] {$d$} (5.18245,0) --
+  (5.18245,0.9) node[right] {$D$};
+  \pgfplothandlerlineto
+  \pgfplotxyfile{plots/BioAtlanSTIC-0409/erlang-0.25-50.table}
+  \pgfusepath{stroke}
+  \draw[interval] (2.96888,0) -- (5.18245,0);
+\end{tikzpicture}
+}
+
+~~\textcolor{red!70}{\rule{17mm}{4.5pt}} ~ Intervalle de tir
+
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{center}
+
+\uncover<2->{
+\scalebox{0.9}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,-1) rectangle (2,1);
+  \TSort{(0,0)}{a}{2}{l}
+  \TSort{(2,0)}{b}{2}{r}
+  \THit{a_0}{}{b_0}{.west}{b_1}
+  \THit{a_0}{out=-120,in=180,selfhit}{a_0}{.west}{a_1}
+  \path[bounce]
+  \TBounce{a_0}{bend left}{a_1}{.south}
+  \TBounce{b_0}{bend left}{b_1}{.south}
+  ;
+  \TState{1-}{a_0,b_0}
+
+  \node[labelprio2, labelstocha] at (-1.5,-0.5) {\stochaa};
+  \node[labelprio3, labelstocha] at (1,0.25) {\stochab};
+
+%  \fill[orange!70] node (1,0.2) circle (1ex) {$\diamond$};
+%  \fill[red!70] (-1.5,-0.5) circle (1ex);
+\end{tikzpicture}
+}
+
+\scalebox{0.9}{
+\begin{tikzpicture}[plot]
+\node[anchor=west] at (0,0.4) {$\PHfrappe{a_0}{b_0}{b_1}$ \enspace (\stochab)};
+\draw[axe] (0,0) -- (4,0) node[right] {$t$};
+\draw (0,0.1) -- (0,-0.1);
+\draw[interval,orange] (1.7,0) -- (3,0);
+
+\node[anchor=west] at (0,-0.6) {$\PHfrappe{a_0}{a_0}{a_1}$ \enspace (\stochaa)};
+\draw[axe] (0,-1) -- (4,-1) node[right] {$t$};
+\draw (0,-0.9) -- (0,-1.1);
+\draw[interval] (0.2,-1) -- (1.5,-1);
+\end{tikzpicture}
+}
+
+\noindent
+\f \tval{Very low probability} to reach $b_1$
+}
+
+\end{center}
+\end{column}
+\end{columns}
+
+\pause
+\medskip
+% \begin{fleches}
+%   \item Tests by simulation
+%   \item Model-checking
+% \end{fleches}
+\begin{itemize}
+  \item Simulation \f not formal
+  \item \textit{Model-checking} \f High complexity for an acceptable precision
+\end{itemize}
+
+\end{frame}

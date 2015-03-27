@@ -1,0 +1,40 @@
+% Implémentation
+
+\begin{frame}[c]
+  \frametitle{Translation To Thomas Modeling}
+  \framesubtitle{\tcite{\cfpimrcmsb}}
+
+\begin{itemize}
+  \item Two successive inferences: 1) interaction graph; 2) parameters
+  \item Exhaustive analysis of the local dynamics for each regulator
+  \item enumeration of all parametrizations compatible with the dynamics
+\end{itemize}
+
+\bigskip
+\tval{Complexity}:\\
+\quad Linear in the number of genes,\\
+\quad Exponential in the number of regulators of one component
+
+\pause
+\bigskip
+\small
+\begin{tabular}{r||c|c|c||c|c||c|c|}
+\multicolumn{4}{c||}{Models} & \multicolumn{2}{c||}{Inference the IG} & \multicolumn{2}{c|}{Inference of parameters}\\
+\hline
+\tval{Name} & Sorts & Processes & Actions & Duration & Edges & Durations & Parameters\\
+\hline
+  \tval{\ex{egfr20}} & 22 & 152 & 399 & \tval{1s} & 50 & \tval{1s} & 191\\
+\hline
+  \tval{\ex{tcrsig40}} & 14 & 156 & 301 & \tval{1s} & 54 & \tval{1s} & 143\\
+\hline
+  \tval{\ex{tcrsig94}} & 39 & 448 & 1124 & \tval{13s} & 169 & $\infty$ & $2.10^9$\\
+\hline
+  \tval{\ex{egfr104}} & 89 & 748 & 2356 & \tval{4min} & 241 & \tval{1min 30s} & $1.10^6 / 2.10^6$\\
+\hline
+\end{tabular}
+
+%S = Sortes \quad CS = Sortes coopératives \quad P = Processus \quad A = Actions
+
+\footnotesize
+\cmodels
+\end{frame}

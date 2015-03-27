@@ -1,0 +1,207 @@
+% Analyse statique avec priorités
+
+\begin{frame}[c]
+  \frametitle{Static Analysis of Canonical Process Hitting}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+%  \framesubtitle{\tcite{\cpmrmscs}}
+
+Adding priorities restricts the possible dynamics (preemptions)
+
+\smallskip
+\f Invalidates the previous under-approximation
+
+\begin{center}
+\scalebox{0.6}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-5,-3.5) rectangle (5,3.5);
+  \definecolor{r2}{RGB}{238,10,38}
+
+  \draw[shading=2, inner color=r2, outer color=white, rounded corners, draw=none] (-6,3.5) rectangle (6,-3.5);
+  \draw[thick,fill=white] (-2.8,2) rectangle (2.8,-2);
+  \draw<4->[thick,fill=lightyellow] (-2.8,2) rectangle (2.8,-2);
+  \draw<1>[thick, shading=1, top color=darkgreen, bottom color=green,opacity=1] (-1.5,.7) rectangle (1.5,-.7);;
+  \draw<2->[thick, shading=1, top color=darkgreen, bottom color=green,opacity=0.3] (-1.5,.7) rectangle (1.5,-.7);;
+%  \draw<1>[color=darkcyan, ultra thick] (0,0) ellipse (2 and 1.5);
+  \draw<1>[color=darkcyan, ultra thick] (1,1.3) arc [start angle=60, end angle=420, x radius=2, y radius=1.5] -- cycle;
+  \draw<2->[color=darkcyan, ultra thick] (1,1.3) arc [start angle=60, end angle=300, x radius=2, y radius=1.5] -- cycle;
+  \draw<3->[thick, shading=1, top color=darkgreen, bottom color=green] (-1.5,.7) rectangle (.8,-.7);;
+\end{tikzpicture}
+}
+\end{center}
+
+\uncover<5->{
+Similar complexity for a more expressive formalism
+
+\begin{fleches}
+  \item Still efficient for big models
+  \item Finer under-approximation
+\end{fleches}
+}
+\end{frame}
+
+
+\begin{frame}[c]
+  \frametitle{Static Analysis of Canonical Process Hitting}
+  \framesubtitle{\tcite{\cfpmrcsbio}}
+
+\uncover<8->{
+\tval{Sufficient condition:}
+
+\begin{itemize}
+  \item no cycle
+  \item each objective has a solution
+  \item \only<-11>{cooperations are coherent}\only<12->{\sout{cooperations are coherent}}
+\end{itemize}
+\vspace{1cm}
+\hspace{2cm}\uncover<12->{\textcolor{darkyellow}{\textbf{Non-conclusive}}}
+\vspace{-3cm}
+}
+
+\begin{center}\scalebox{\scaleex}{
+\begin{tikzpicture}[aS]
+  \path[draw=none,use as bounding box] (-.5,-2.2) rectangle (12,2.2);
+  \node[Aproc] (z1) {$z_1$};
+  \uncover<2->{ \node[Aobj,right of=z1] (z01) {$\PHobj{z_0}{z_1}$}; }
+  \uncover<3->{ \node[Asol,right of=z01] (z01s) {}; }
+  
+  \uncover<4->{ \node[Aproc,right of=z01s] (ab11) {$ab_{11}$}; }
+  \uncover<5->{ \node[Asol,right of=ab11] (ab11s) {}; }
+  
+  \uncover<6->{
+    \node[Aproc,above right of=ab11s] (a1) {$a_1$};
+    \node[Aproc,below right of=ab11s] (b1) {$b_1$};
+  }
+  
+  \uncover<7->{
+    \node[Aobj,above right of=a1] (a11) {$\PHobj{a_1}{a_1}$};
+    \node[Asol,right of=a11] (a11s) {};
+    \node[Aobj,right of=a1] (a01) {$\PHobj{a_0}{a_1}$};
+    \node[Asol,right of=a01] (a01s) {};
+    \node[Aproc,right of=a01s] (b0) {$b_0$};
+    \node[Aobj,right of=b0] (b00) {$\PHobj{b_0}{b_0}$};
+    \node[Asol,right of=b00] (b00s) {};
+    \node[Aobj,above right of=b0] (b10) {$\PHobj{b_1}{b_0}$};
+    \node[Asol,right of=b10] (b10s) {};
+    
+    \node[Aobj,below right of=b1] (b11) {$\PHobj{b_1}{b_1}$};
+    \node[Asol,right of=b11] (b11s) {};
+    \node[Aobj,right of=b1] (b01) {$\PHobj{b_0}{b_1}$};
+    \node[Asol,right of=b01] (b01s) {};
+    \node[Aproc,right of=b01s] (a0) {$a_0$};
+    \node[Aobj,right of=a0] (a00) {$\PHobj{a_0}{a_0}$};
+    \node[Asol,right of=a00] (a00s) {};
+    \node[Aobj,below right of=a0] (a10) {$\PHobj{a_1}{a_0}$};
+    \node[Asol,right of=a10] (a10s) {};
+  }
+  
+  \path (z1) edge (z01);
+  \path<2-> (z01) edge (z01s);
+  \path<3-> (z01s) edge (ab11);
+  \path<4-> (ab11) edge[aSPrio] (ab11s);
+  \path<5-> (ab11s) edge (a1) edge (b1);
+  \path<6-> (a1) edge (a01) edge (a11) (b1) edge (b01) edge (b11);
+  
+  \path<7->
+  (a01) edge (a01s)
+  (a01s) edge (b0)
+  (a11) edge (a11s)
+  (a0) edge (a10) edge (a00)
+  (a10) edge (a10s)
+  (a00) edge (a00s)
+  
+  (b0) edge (b10) edge (b00)
+  (b10) edge (b10s)
+  (b00) edge (b00s)
+  (b01) edge (b01s)
+  (b01s) edge (a0)
+  (b11) edge (b11s)
+  ;
+  
+  % Arc non cohérent
+  \node<9-11>[Aproc,Aex,at=(ab11)] {$ab_{11}$};
+  \node<9-11>[Asol,Aexsol,right of=ab11] (ab11s) {};
+  \path<9-11> (ab11) edge[aSPrio,Aexedge] (ab11s);
+  \node<12>[Aproc,Ahl,at=(ab11)] {$ab_{11}$};
+  \node<12>[Asol,Ahlsol,right of=ab11] (ab11s) {};
+  \path<12> (ab11) edge[aSPrio,Ahledge] (ab11s);
+  
+  \node<10>[Aproc,Aex,at=(a1)] {$a_1$};
+  \node<10>[Aproc,Aex,at=(b1)] {$b_1$};
+  \node<11->[Aproc,Ahl,at=(a1)] {$a_1$};
+  \node<11->[Aproc,Ahl,at=(a0)] {$a_0$};
+\end{tikzpicture}
+}\end{center}
+
+\scalebox{\scaleminiex}{
+\begin{tikzpicture}
+  \path[use as bounding box] (-0.5,-0.5) rectangle (8.5,3.5);
+  \tikzstyle{current process}=[process,fill=gray]
+  \exphcoopprio{prio}{}
+  \node[process,very thick] at (z_1.center) {?};
+  \TState{1-}{a_0, b_0, ab_0, z_0}
+\end{tikzpicture}}
+\hfill
+\scalebox{\scaleex}{
+\scalebox{\scaleex}{
+\begin{tikzpicture}[aS]
+  \path[use as bounding box] (0,0) rectangle (5.8,4);
+  \glclegend{prio}{$z_1$}{$\PHobj{z_0}{z_1}$}
+\end{tikzpicture}
+}}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{Implementation of the Static Analysis Into \Pint}
+
+Complexity:
+
+\begin{itemize}
+  \item Computation of the local causality graph:
+  \begin{itemize}
+    \item Polynomial in the number of sorts
+    \item Exponential in the number of processes of each sort
+  \end{itemize}
+  \item Analysis of the graph (sufficient condition):
+  \begin{itemize}
+    \item Polynomial in the size of the graph
+  \end{itemize}
+\end{itemize}
+
+\pause
+\medskip
+Makes the study of large networks tractable:
+
+\bigskip
+\small
+\begin{tabular}{r||c|c|c|c||c|c|c|}
+%\hline
+\tval{Modèle} & Sortes & Processus & Actions & États & libddd$^1$ & GINsim$^2$ & \cellcolor{couleurtitre} \Pint \\\hline
+\tval{\ex{egfr20}} & 35 & 196 & 670 & $2^{64}$ & & $<$1s & \cellcolor{couleurtitre} \tval{0.02s} \\\hline
+\tval{\ex{tcrsig40}} & 54 & 156 & 301 & $2^{73}$ & & $\infty$ & \cellcolor{couleurtitre} \tval{0.02s} \\\hline
+\tval{\ex{tcrsig94}} & 133 & 448 & 1124 & $2^{194}$ & [13min -- $\infty$] & & \cellcolor{couleurtitre} \tval{0.03s} \\\hline
+\tval{\ex{egfr104}} & 193 & 748 & 2356 & $2^{320}$ & & & \cellcolor{couleurtitre} \tval{0.16s}\\\hline
+\end{tabular}
+
+\bigskip
+\footnotesize
+\quad$^1$ LIP6/Move
+\tcite{Couvreur \textit{et al.}, \textit{Lecture Notes in Computer Science}, 2002}\\
+\quad$^2$ TAGC/IGC
+%\tcite{Gonzalez \textit{et al.}, \textit{Biosystems}, 2006}
+\tcite{Chaouiya, Naldi, Thieffry, \textit{Methods in Molecular Biology}, 2012}
+
+%S = Sorts \quad CS = Cooperative sorts \quad P = Processes \quad A = Actions
+
+%\cmodels
+%\medskip
+%\todo{Citer les papiers d'origine}
+% \citeegfra\\
+% \citetcrsiga\\
+% \citetcrsigb\\
+% \citeegfrb\\
+\cmodels
+
+\end{frame}

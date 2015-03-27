@@ -1,0 +1,78 @@
+% Stochasticité dans Metazoan
+
+\begin{frame}[t]
+  \frametitle{Use of Stochastic Parameters}
+  \framesubtitle{\tcite{\cpmrtcsb}}
+
+\makenoprio
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-1,0) rectangle (8,6.5);
+  \exmetazoan
+  
+  \node[labelprio2, labelstocha] at (4,5.3) {\stochaa};
+  \node[labelprio2, labelstocha] at (5.5,3.8) {\stochaa};
+
+  \node[labelprio3, labelstocha] at (0,2.5) {\stochab};
+  \node[labelprio3, labelstocha] at (0,6.3) {\stochab};
+
+  \node[labelprio1, labelstocha] at (2.3,1.7) {\stochainf};
+  \node[labelprio1, labelstocha] at (2.3,4.1) {\stochainf};
+\end{tikzpicture}
+
+\vspace*{-2.5cm}
+
+\begin{flushright}
+
+\scalebox{0.9}{
+\begin{tikzpicture}[plot]
+\node at (0,2.3) {\stochainf};
+\draw[axe] (0,2) -- (4,2) node[right] {$t$};
+\draw (0,1.9) -- (0,2.1);
+\draw[interval,blue!50] (-0.1,2) -- (0.1,2);
+
+\node at (0.85,1.3) {\stochaa};
+\draw[axe] (0,1) -- (4,1) node[right] {$t$};
+\draw (0,0.9) -- (0,1.1);
+\draw[interval] (0.2,1) -- (1.5,1);
+
+\node at (2.35,0.3) {\stochab};
+\draw[axe] (0,0) -- (4,0) node[right] {$t$};
+\draw (0,0.1) -- (0,-0.1);
+\draw[interval,orange] (1.7,0) -- (3,0);
+
+\end{tikzpicture}
+}
+
+\end{flushright}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{Temporal Simulation}
+  \framesubtitle{\tcite{\paulevephd}}
+
+\begin{itemize}
+  \item Simulation with stochastic parameters:
+\end{itemize}
+
+\medskip
+
+\scalebox{.8}{\input{plots/metazoan-plot-a}}
+\scalebox{.8}{\input{plots/metazoan-plot-c}}
+\scalebox{.8}{\input{plots/metazoan-plot-f}}
+
+\bigskip
+\bigskip
+
+\begin{itemize}
+  \item Other possible analysis: stochastic model checkers (PRISM)
+  \begin{itemize}
+    \item[\f] But combinatoric explosion: PRISM fails for more than 5 components
+  \end{itemize}
+
+\end{itemize}
+
+\end{frame}

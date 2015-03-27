@@ -1,0 +1,84 @@
+% Actions plurielles
+
+\begin{frame}[c]
+  \frametitle{Process Hitting with Synchronous Actions}
+
+\begin{tikzpicture}
+  \path[use as bounding box] (-5.2,-4) rectangle (5.2,3.5);
+  \planPHstandard
+  \planPHp
+  \planPHan
+  \planPHmult
+  \planPHcanonique[stillhidden]
+\end{tikzpicture}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{Addition of Synchronous Actions}
+
+\begin{columns}
+\begin{column}{.4\textwidth}
+
+\begin{tikzpicture}
+  %\path[use as bounding box] (-2,0) rectangle (8,6.5);
+  %\TSort{(0,0)}{b}{2}{l}
+  \TSort{(0,2)}{y}{2}{l}
+  \TSort{(3,0)}{z}{2}{r}
+  \TSort{(3,3)}{x}{2}{r}
+  
+  \TActionPlur{y_1}{x_1.west}{x_0.north west}{}{1.5,2.5}{right}
+  \TActionPlur{}{z_0.west}{z_1.south west}{}{1.5,2.5}{left}
+  \TActionPlur{}{x_0.east}{x_1.south east}{}{4,2.5}{right}
+
+  \TState{1}{x_1, y_1, z_0}
+  \TState{2}{x_0, y_1, z_1}
+  \TState{3}{x_1, y_1, z_1}
+\end{tikzpicture}
+
+\end{column}
+\begin{column}{.55\textwidth}
+\begin{center}
+
+\begin{itemize}
+  \item Synchronizations between actions:
+  \begin{itemize}
+    \item[--] All catalysts must be present
+    \item[--] Reactants are consumed all together
+    \item[--] Simultaneous creation of the products
+  \end{itemize}
+  \item Representation of biochemical equations:\\
+    \centering $X \xrightarrow{Y} Z$\\
+    \raggedright under the form:\\
+    \centering $h_2 = \PHfrappemults{x_1, y_1, z_0}{x_0, z_1}$\\
+\end{itemize}
+
+% \vspace*{.5cm}
+
+% \ex{%
+% $h_2 = \PHfrappemults{x_1, y_1, z_0}{x_0, z_1}$\\
+% $h_1 = \PHfrappemults{c_0}{c_1}$%
+% }
+
+\vspace*{.5cm}
+All processes of $A$\\
+must be present to play $\PHfrappemult{A}{B}$
+
+\medskip
+After the play of $\PHfrappemult{A}{B}$,\\
+all processes of $B$ are present
+% 
+% est jouable dans $s$ si et seulement si :
+% 
+% $A \subset s$
+% 
+% \bigskip
+% Après jeu : $s \play (\PHfrappemult{A}{B}) = s \Cap B$
+
+\end{center}
+\end{column}
+\end{columns}
+
+\end{frame}

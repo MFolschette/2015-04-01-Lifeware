@@ -1,0 +1,68 @@
+% Intro
+
+\begin{frame}[c]
+  \frametitle{The Modeling/Analysis duality}
+
+Modeling a system is the first step towards its comprehension
+
+\begin{center}
+\begin{tikzpicture}
+  \node[ellipse, fill=blue!20] (m) at (-1.5, 0) {Modeling};
+  \node[ellipse, fill=violet!20] (a) at (1.5, 0) {Analysis};
+  \uncover<2->{ \path[->, shorten >=1em, shorten <=1em] (a) edge[ultra thick, bend left] (m); }
+  \uncover<3->{ \path[->, shorten >=1em, shorten <=1em] (m) edge[ultra thick, bend left] (a); }
+\end{tikzpicture}
+\end{center}
+
+\pause[2]
+The required analysis has an impact on modeling
+\begin{itemize}
+  \item The modeling tools must be adapted to the observed properties
+\end{itemize}
+
+\pause[3]
+\medskip
+Modeling choices have an impact on the results of the analysis
+\begin{itemize}
+  \item The level of details changes the quantity of obtained info
+  \item The size of the model increases the analysis duration
+\end{itemize}
+
+\pause[4]
+\medskip
+\begin{center}
+  \tval{The modeling and analysis steps of a system are strongly linked}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[c]
+\frametitle{Overview of This Presentation}
+
+\tval{State of the Art} of the modeling of biological regulatory networks
+\begin{itemize}
+  \item Discrete asynchronous representations and Thomas modeling
+  \item Standard Process Hitting
+\end{itemize}
+
+\pause
+\bigskip
+\tval{Enriching} the Process Hitting
+\begin{itemize}
+  \item Integration of temporal constraints
+  \item Synchronicity between actions
+  \item[] \quad \f Adding of priorities, neutralizing edges or synchronous actions
+\end{itemize}
+
+\pause
+\bigskip
+\tval{Analysis} of the Process Hitting
+\begin{itemize}
+  \item Correction of the cooperative sorts
+  \item Static analysis of reachability
+  \item Equivalences and links with other formalisms
+\end{itemize}
+
+\end{frame}

@@ -1,0 +1,38 @@
+% Actions plurielles sur Metazoan
+
+\begin{frame}[t]
+  \frametitle{Use of Synchronous Actions}
+
+\makenoprio
+
+\begin{tikzpicture}[apdotsimple/.style={apdot}]
+  \path[use as bounding box] (-3,1) rectangle (6,6.5);
+  \TSort{(0,4)}{c}{2}{l}
+  \TSort{(1,0)}{f}{2}{l}
+  \TSort{(5,4)}{a}{2}{r}
+
+  \TActionPlur{f_1, c_0}{a_0.west}{a_1.south west}{}{2.5,2.5}{left}
+%   \THit{fc_2}{\prio}{a_0}{.west}{a_1}
+%   \path[bounce, bend left=50]
+%     \TBounce{a_0}{\prio}{a_1}{.south west};
+  
+  \THit{c_1}{\prio}{a_1}{.west}{a_0}
+  \path[bounce, bend right=50]
+    \TBounce{a_1}{\prio}{a_0}{.north west};
+  
+  \THit{f_1}{bend left=30, in=90}{c_0}{.west}{c_1}
+  \path[bounce, bend left=50]
+    \TBounce{c_0}{}{c_1}{.south west};
+  
+  \TActionPlur{}{c_1.west}{c_0.north west}{}{-1,6}{right}
+%   \THit{c_1}{selfhit}{c_1}{.west}{c_0}
+%   \path[bounce, bend right=50]
+%     \TBounce{c_1}{}{c_0}{.north west};
+\end{tikzpicture}
+
+\begin{flushright}
+  \f Same dynamics than classes of priorities,\\
+  except for of the missing cooperative sort
+\end{flushright}
+
+\end{frame}

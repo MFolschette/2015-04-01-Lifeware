@@ -1,0 +1,403 @@
+\documentclass[fleqn,8pt,t]{beamer}
+
+%\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{french} % Sommaire en début de document
+%\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} % Marges
+
+\usepackage{amsmath} % Maths
+\usepackage{amsfonts} % Maths
+\usepackage{amssymb} % Maths
+\usepackage{stmaryrd} % Maths (crochets doubles)
+
+%\usepackage{listings} % Mise en forme du code (pour Hoare) ## À REVOIR ###
+%\usepackage{ifthen} % Structures If Then Else
+\usepackage{theorem} % Styles supplémentaires pour théorèmes
+\usepackage{url}
+\usepackage{xcolor,colortbl} % Cellules colorées
+\usepackage{array}  % Tableaux évolués
+\usepackage{multirow}  % Pour des colonnes sur plusieurs lignes
+
+%\usepackage{enumerate} % Changer les puces des listes d'énumération
+%\usepackage{setspace} % Changer les interlignes
+
+%\usepackage{subfig} % Créer des sous-figures
+%\usepackage{graphicx} % Importer des images
+\usepackage{tikz}
+
+\usepackage{ulem}  % Pour l'attribut barré
+
+\usepackage{comment}
+
+% Police
+\usepackage{lmodern}
+%\usepackage{libertine}
+% \usepackage{ziffer}     % Typographie française pour les nombres
+% \ZifferAus
+%\ZifferAn
+
+
+\input{macros/macros}
+\input{macros/macros-ph}
+\input{macros/macros-abstr}
+\input{macros/tikzstyles}
+
+
+
+% Commande À FAIRE
+\usepackage{color} % Couleurs du texte
+%\newcommand{\afaire}[1]{\textcolor{red}{[À FAIRE : #1]}}
+\newcommand{\todo}[1]{\textcolor{red}{<[[#1]]>}}
+
+
+
+% \colorlet{couleurtheme}{gray}  % Couleur principale du thème
+% \colorlet{couleurcit}{gray}  % Couleur des citations
+% \colorlet{couleurex}{blue}  % Couleur des citations
+% \colorlet{couleurliens}{darkblue}  % Couleur des citations
+
+\definecolor{couleurtheme}{rgb}{0.4,0.4,.8}
+\definecolor{couleuremph}{rgb}{0.3,0.3,.9}
+%\definecolor{couleurtheme}{rgb}{0,0.7,0.8}
+%\colorlet{couleurtheme}{darkcyan}  % Couleur principale du thème
+\colorlet{couleurcit}{gray}  % Couleur des citations
+\colorlet{couleurmescit}{violet}  % Couleur des citations
+\colorlet{couleurex}{blue}  % Couleur des citations
+\colorlet{couleurliens}{darkblue}  % Couleur des citations
+%\definecolor{couleurtitre}{rgb}{0.54,0.8,0.9}
+\colorlet{couleurtitre}{couleurtheme!50}  % Cadre du titre
+
+\usetheme{Pittsburgh}   % Thème général
+\usefonttheme{default}  % Thème de polices
+\setbeamertemplate{navigation symbols}{}  % Pas de menu de navigation
+%\setbeamertemplate{itemize item}[x]   % Puces des listes
+
+\usecolortheme[named=couleurtheme]{structure}    % Couleur de la structure : titres et puces
+%\setbeamercolor{normal text}{bg=black,fg=white}  % Couleur du texte
+\setbeamercolor{item}{fg=couleurtheme}           % Couleur des puces
+%\setbeamercolor{item projected}{fg=black}        % Couleur des recouvrements
+%\setbeamercolor{alerted text}{fg=yellow}         % ?
+
+\setbeamerfont{frametitle}{size=\Large}  % Police des titres
+
+
+% Flèche grise
+\newcommand{\f}{\textcolor{couleurtheme}{\textbf{$\rightarrow$\ }}}
+\newcommand{\cth}[1]{\textcolor{couleurtheme}{#1}}
+
+% Environnement liste avec flèches
+\newenvironment{fleches}{%
+\begin{list}{}{%
+\setlength{\labelwidth}{1em}% largeur de la boîte englobant le label
+\setlength{\labelsep}{0pt}% espace entre paragraphe et l’étiquette
+%\setlength{\itemsep}{1pt}
+%\setlength{\leftmargin}{\labelwidth+\labelsep}% marge de gauche
+\renewcommand{\makelabel}{\f}%
+}}{\end{list}}
+
+% Liste sans puce
+\newenvironment{liste}{%
+\begin{list}{}{%
+\setlength{\labelwidth}{0em}% largeur de la boîte englobant le label
+\setlength{\labelsep}{0pt}% espace entre paragraphe et l’étiquette
+\setlength{\leftmargin}{0em}% marge de gauche
+%\renewcommand{\makelabel}{\f}%
+}}{\end{list}}
+
+% Style des exemples
+\newcommand{\ex}[1]{\textcolor{couleurex}{#1}}
+\newcommand{\qex}[1]{\quad \ex{#1}}
+\newcommand{\rex}[1]{\hfill \ex{#1}}
+\newcommand{\redex}[1]{\textcolor{red}{#1}}
+
+\newcommand{\lien}[1]{\textcolor{couleurliens}{\underline{\url{#1}}}}
+
+\newcommand{\console}[1]{\textcolor{darkgray}{#1}}
+
+\newcommand{\emphcolor}[1]{\textcolor{couleuremph}{#1}}
+
+% Style des citations
+\newcommand{\tscite}[1]{\textcolor{couleurcit}{#1}}
+\newcommand{\tcite}[1]{\textcolor{couleurcit}{[#1]}}
+\newcommand{\tcitebullet}{~~$\textcolor{couleurtheme}{\bullet}$~}
+
+\newcommand{\vol}{Vol.\ }
+%\newcommand{\no}{No.\ }
+%\newcommand{\cad}{c.-à-d.\ }
+\newcommand{\cad}{\ie}
+\newcommand{\ie}{i.e.\ }
+
+
+
+% Style de texte mis en valeur
+\newcommand{\tval}[1]{\textbf{#1}}
+
+% Un vrai symbole pour l'ensemble vide
+\renewcommand{\emptyset}{\varnothing}
+
+% Pour définir la conférence et son nom court
+\newcommand{\conference}[2]{\def\theconference{#2}
+\def\insertshortconference{\ifthenelse{\equal{#1}{-}}{#2}{\ifthenelse{\equal{#1}{}}{#2}{#1}}}}
+
+
+
+\newcommand{\thedate}{2014/10/08}
+\date{\thedate}
+\conference{Lifeware seminar}{Public seminar of team Lifeware}
+\title[Modeling and analysis of large RN with the PH framework]%
+  {Modeling and analysis of large regulatory networks with the Process Hitting framework}
+\author{Maxime FOLSCHETTE}
+
+
+
+
+\setbeamertemplate{footline}{\color{gray}%
+\scriptsize
+\quad\strut%
+\insertauthor%
+\hfill%
+\insertframenumber/\inserttotalframenumber%
+\hfill%
+\insertshortconference{} --- \thedate\quad\strut
+}
+
+
+\newcommand{\headersep}{$\circ$} % \bullet \triangleright
+
+\setbeamertemplate{headline}{\color{gray}%
+\vskip0.3em%
+\quad\strut%
+{\scriptsize\color{black}%
+% Gris si une section existe
+\ifthenelse{\equal{\thesection}{0}}{}{%
+\ifthenelse{\equal{\lastsection}{x}}{}{%
+\color{gray}%
+}}%
+\insertshorttitle
+\ifthenelse{\equal{\thesection}{0}}{}{%
+\ifthenelse{\equal{\lastsection}{x}}{}{%
+~\headersep{} %
+% Gris si une sous-section existe
+\ifthenelse{\equal{\thesubsection}{0}}{\color{black}}{%
+\ifthenelse{\equal{\lastsubsection}{x}}{\color{black}}{%
+\color{gray}%
+}}%
+\insertsectionhead%
+%
+\ifthenelse{\equal{\thesubsection}{0}}{}{%
+\ifthenelse{\equal{\lastsubsection}{x}}{}{%
+~\headersep{} \color{black}\insertsubsectionhead%
+%
+}}}}}%
+\vskip-5ex%
+}
+
+
+
+\def \scaleex {0.85}
+\def \scaleminiex {0.6}
+\def \scaleinf {0.6}
+
+\colorlet{colorb}{blue}
+\colorlet{colora1}{yellow}
+\colorlet{colora0}{green}
+\colorlet{colora1font}{darkyellow}
+\colorlet{colora0font}{darkgreen}
+
+\colorlet{exanswer}{blue}
+\colorlet{colorgray}{lightgray}
+
+
+
+\begin{document}
+
+\begin{frame}[plain,label=title]
+
+% Cadre de titre
+\begin{center}
+%\vspace{.7cm}
+\vfill
+\textcolor{couleurtheme}{\fbox{\noindent%
+\setbeamercolor{postit}{fg=black,bg=couleurtitre}%
+\begin{beamercolorbox}[sep=1.5em]{postit}
+\centering
+\Large
+\textbf{%
+{\normalsize\theconference{}}\\~\\%
+\inserttitle
+}
+\end{beamercolorbox}}}
+
+% Auteurs et instituts
+\par
+\medskip
+\bigskip
+\normalsize
+\tval{Maxime FOLSCHETTE}
+
+\medskip
+\footnotesize
+MeForBio / IRCCyN / École centrale de Nantes (Nantes, France)
+
+\texttt{maxime.folschette@irccyn.ec-nantes.fr}
+
+\url{http://maxime.folschette.name/}
+
+\bigskip
+
+\normalsize
+\thedate
+\end{center}
+
+\scriptsize
+\bigskip
+%Jury de thèse :
+%\\
+
+%\president{Mme}{Prénom}{Nom}{Titre}{Établissement}
+%\guest{Mme}{Prénom}{Nom}{Titre}{Établissement}
+
+\begin{tabular}{r@{\ \ }l}
+\textbf{Rapporteurs :}
+& Jean-Paul COMET, Professeur des universités,
+    Université de Nice -- Sophia Antipolis \\
+& Anne SIEGEL, Directrice de recherche CNRS,
+    IRISA (CNRS \& Université Rennes 1), Inria Rennes \vspace*{1em} \\
+\textbf{Examinateurs :}
+& Mireille RÉGNIER, Directrice de recherche Inria,
+    École polytechnique \& Université Paris-Sud 11 \\
+& Denis THIEFFRY, Professeur des universités,
+    École normale supérieure \vspace*{1em} \\
+\textbf{Directeur de thèse :}
+& Olivier ROUX, Professeur des universités,
+    École centrale de Nantes \\
+\textbf{Co-encadrant de thèse :}
+& Morgan MAGNIN, Maître de conférences,
+    École centrale de Nantes
+\end{tabular}
+
+\vfill
+
+\end{frame}
+
+
+
+\input{parts/ex.tex}
+
+% Références des modèles
+\newcommand{\cmodels}{\bigskip
+\quad\tval{\ex{egfr20}} : Epithelial Growth Factor Receptor (20 components) \tcite{Sahin \textit{et al.}, 2009}\\
+\quad\tval{\ex{egfr104}} : Epithelial Growth Factor Receptor (104 components) \tcite{Samaga \textit{et al.}, 2009}\\
+\quad\tval{\ex{tcrsig40}} : T-Cell Receptor (40 composants) \tcite{Klamt \textit{et al.}, 2006}\\
+\quad\tval{\ex{tcrsig94}} : T-Cell Receptor (94 composants) \tcite{Saez-Rodriguez \textit{et al.}, 2007}\\}
+% \quad\tval{\ex{egfr20}} : Récepteur de croissant épidermique (20 composants) \tcite{Özgür Sahin \textit{et al.}, 2009}\\
+% \quad\tval{\ex{egfr104}} : Récepteur de croissant épidermique (104 composants) \tcite{Regina Samaga \textit{et al.}, 2009}\\
+% \quad\tval{\ex{tcrsig40}} : Récepteur de lymphocyte T (40 composants) \tcite{Steffen Klamt \textit{et al.}, 2006}\\
+% \quad\tval{\ex{tcrsig94}} : Récepteur de lymphocyte T (94 composants) \tcite{Julio Saez-Rodriguez \textit{et al.}, 2007}\\}
+
+% Under-approximation of Reachability in Multivalued Asynchronous Networks
+\newcommand{\cfpmrcsbio}{Folschette \textit{et al.} in \textit{Workshop on Interactions between Computer Science and Biology}, 2013}
+% Refining dynamics of gene regulatory networks in a stochastic $\pi$-calculus framework
+\newcommand{\cpmrtcsb}{Paulevé \textit{et al.} in \textit{Transactions on Computational Systems Biology}, 2011}
+% Static analysis of biological regulatory networks dynamics using abstract interpretation
+\newcommand{\cpmrmscs}{Paulevé \textit{et al.} in \textit{Mathematical Structures in Computer Science}, 2012}
+% Concretizing the Process Hitting into Biological Regulatory Networks
+\newcommand{\cfpimrcmsb}{Folschette \textit{et al.} in \textit{Computational Methods in Systems Biology}, 2012}
+% Formal Methods for Modeling Biological Regulatory Networks
+%\newcommand{\crcbmfma}{Richard \textit{et al.} in Modern Formal Methods and App., 2006}
+% Semantics of Biological Regulatory Networks
+%\newcommand{\bccdmr}{Bernot \textit{et al.} in Concurrent Models in Molecular Biology, 2007}
+% Negative circuits and sustained oscillations in asynchronous automata networks
+%\newcommand{\rcite}{Richard in Advances in Applied Mathematics, 2010}
+% Thèse de Loïc
+\newcommand{\paulevephd}{Paulevé (PhD thesis), 2011}
+% R. Thomas' logical method
+\newcommand{\citerichard}{Richard, Comet, Bernot (tutorial), 2008}
+
+\newcommand{\citerichardcomet}{Richard, Comet in \textit{Discrete Applied Mathematics}, 2007}
+\newcommand{\citeremy}{Remy, Ruet, Thieffry in \textit{Advances in Applied Mathematics}, 2008}
+\newcommand{\citesmbionet}{Bernot, Comet, Richard, Guespin in \textit{Journal of Theoretical Biology}, 2004}
+\newcommand{\citeito}{Ito, Izumi, Hagihara, Yonezaki in \textit{BioInformatics and BioEngineering}, 2010}
+\newcommand{\citethomas}{Thomas in \textit{Journal of Theoretical Biology}, 1973}
+\newcommand{\citekauffman}{Kauffman in \textit{Journal of Theoretical Biology}, 1969}
+
+
+
+\newcommand{\planPHstandard}[1][]{%
+  \draw[very thick, draw=gray, fill=gray!10, #1] (0,-2.5) ellipse (1.7 and 1)
+    node[text width=4cm, align=center] {Standard\\Process Hitting};}
+\newcommand{\planPHp}[1][]{%
+  \draw[very thick, draw=blue, fill=blue!10, #1] (0,2) ellipse (2.5 and 1.5)
+    node[text width=4cm, align=center, yshift=.5cm] {Process Hitting\\with classes of priority};}
+\newcommand{\planPHcanonique}[1][]{%
+  \draw[very thick, draw=red, fill=red!10, #1] (0,1.3) ellipse (1.8 and .5)
+    node[text width=4cm, align=center, yshift=0cm] {Canonical\\Process Hitting};}
+\newcommand{\planPHan}[1][]{%
+  \draw[very thick, draw=darkgreen, fill=darkgreen!10, #1] (-3.5,0) ellipse (1.7 and 1)
+    node[text width=4cm, align=center] {Process Hitting\\with neutralizing edges};}
+\newcommand{\planPHmult}[1][]{%
+  \draw[very thick, draw=violet, fill=violet!10, #1] (3.5,0) ellipse (1.7 and 1)
+    node[text width=4cm, align=center] {Process Hitting\\with synchronous actions};}
+\newcommand{\planPHstandardligne}{
+  \draw[very thick, draw=gray, bend left=30] (-5,-2.7) edge (5,-2.7);}
+
+
+
+\section{Introduction}
+\input{parts/intro.tex}
+
+\section{State of the Art of Modeling}
+\input{parts/abstractions.tex}
+\input{parts/def_thomas.tex}
+
+\input{parts/def_ph.tex}
+\input{parts/def_static.tex}
+
+\section{Enriching the Process Hitting}
+\input{parts/metazoan.tex}
+\subsection{Classes of Priorities}
+\input{parts/def_prio.tex}
+\input{parts/metazoan_prio.tex}
+\subsection{Neutralizing Edges}
+\input{parts/def_an.tex}
+\input{parts/metazoan_an.tex}
+\subsection{Synchronous Actions}
+\input{parts/def_mult.tex}
+\input{parts/metazoan_mult.tex}
+
+\section{Canonical Process Hitting and Analysis}
+\subsection{Canonical Process Hitting}
+\input{parts/sc_temposhift.tex}
+\input{parts/sc_prio.tex}
+\subsection{Static Analysis}
+\input{parts/prio_static.tex}
+\subsection{Translations}
+\input{parts/metazoan_canonique.tex}
+\input{parts/trad.tex}
+\input{parts/impl.tex}
+
+\section{Conclusion}
+\input{parts/ccl.tex}
+\section[x]{Thank you for your attention}
+\input{parts/merci.tex}
+
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+\section[x]{Bibliography}
+\input{parts/biblio.tex}
+
+\section{Introduction of Stochastic Parameters}
+\input{parts/def_stocha.tex}
+\input{parts/metazoan_stocha.tex}
+\input{parts/metazoan_prio.tex}
+
+\section{Static Analysis of Standard Process Hitting}
+\input{parts/annex_static.tex}
+\input{parts/annex_fp.tex}
+
+\setcounter{framenumber}{\value{finalframe}}
+
+\end{document}
