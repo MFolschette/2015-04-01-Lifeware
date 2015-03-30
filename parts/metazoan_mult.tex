@@ -28,6 +28,15 @@
 %   \THit{c_1}{selfhit}{c_1}{.west}{c_0}
 %   \path[bounce, bend right=50]
 %     \TBounce{c_1}{}{c_0}{.north west};
+
+  \TActionPlur{}{f_1.south west}{f_0.north west}{}{-.5,.5}{right}
+%   \THit{f_1.north east}{selfhit, min distance=30, bend left, out=150, in=90}{f_1}{.south east}{f_0}
+%   \path[bounce, bend left=50]
+%     \TBounce{f_1}{}{f_0}{.north east};
+  
+  \THit{f_0.east}{bend right=60, in=-140}{c_1}{.south east}{c_0}
+  \path[bounce, bend left=50]
+    \TBounce{c_1}{}{c_0}{.north east};
 \end{tikzpicture}
 
 \begin{flushright}
