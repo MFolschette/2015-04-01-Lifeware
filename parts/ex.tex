@@ -734,62 +734,63 @@
 }
 
 
-
-%%% Structure abstraite pour l'atteignabilité avec priorités %%%
-\def \priostatic {
-\node[Aproc] (z1) {$z_1$};
-\node[Aobj,right of=z1] (z01) {$\PHobj{z_0}{z_1}$};
-\node[Asol,right of=z01] (z01s) {};
-
-\node[Aproc,right of=z01s] (ab11) {$ab_{11}$};
-\node[Asol,right of=ab11] (ab11s) {};
-
-\node[Aproc,above right of=ab11s] (a1) {$a_1$};
-\node[Aobj,above right of=a1] (a11) {$\PHobj{a_1}{a_1}$};
-\node[Asol,right of=a11] (a11s) {};
-\node[Aobj,right of=a1] (a01) {$\PHobj{a_0}{a_1}$};
-\node[Asol,right of=a01] (a01s) {};
-\node[Aproc,right of=a01s] (b0) {$b_0$};
-\node[Aobj,right of=b0] (b00) {$\PHobj{b_0}{b_0}$};
-\node[Asol,right of=b00] (b00s) {};
-\node[Aobj,above right of=b0] (b10) {$\PHobj{b_1}{b_0}$};
-\node[Asol,right of=b10] (b10s) {};
-
-\node[Aproc,below right of=ab11s] (b1) {$b_1$};
-\node[Aobj,below right of=b1] (b11) {$\PHobj{b_1}{b_1}$};
-\node[Asol,right of=b11] (b11s) {};
-\node[Aobj,right of=b1] (b01) {$\PHobj{b_0}{b_1}$};
-\node[Asol,right of=b01] (b01s) {};
-\node[Aproc,right of=b01s] (a0) {$a_0$};
-\node[Aobj,right of=a0] (a00) {$\PHobj{a_0}{a_0}$};
-\node[Asol,right of=a00] (a00s) {};
-\node[Aobj,below right of=a0] (a10) {$\PHobj{a_1}{a_0}$};
-\node[Asol,right of=a10] (a10s) {};
-
-\path
-(z1) edge (z01)
-(z01) edge (z01s)
-(z01s) edge (ab11)
-(ab11) edge[aSPrio] (ab11s)
-(ab11s) edge (a1) edge (b1)
-
-(a1) edge (a01) edge (a11)
-(a01) edge (a01s)
-(a01s) edge (b0)
-(a11) edge (a11s)
-(a0) edge (a10) edge (a00)
-(a10) edge (a10s)
-(a00) edge (a00s)
-
-(b0) edge (b10) edge (b00)
-(b10) edge (b10s)
-(b00) edge (b00s)
-(b1) edge (b01) edge (b11)
-(b01) edge (b01s)
-(b01s) edge (a0)
-(b11) edge (b11s)
-;
-}
+% 
+% %%% Structure abstraite pour l'atteignabilité avec priorités %%%
+% \def \priostatic {
+% \node[Aproc] (z1) {$z_1$};
+% \node[Aobj,right of=z1] (z01) {$\PHobj{z_0}{z_1}$};
+% \node[Asol,right of=z01] (z01s) {};
+% 
+% \node[Async,right of=z01s] (a1b1sync) {$\{a_1, b_1\}$};
+% 
+% \node[Aproc,above right of=a1b1sync] (a1) {$a_1$};
+% \node[Aobj,above right of=a1] (a11) {$\PHobj{a_1}{a_1}$};
+% \node[Asol,right of=a11] (a11s) {};
+% \node[Aobj,right of=a1] (a01) {$\PHobj{a_0}{a_1}$};
+% \node[Asol,right of=a01] (a01s) {};
+% \node[Async,right of=a01s] (b0sync) {$\{b_0\}$};
+% \node[Aproc,right of=b0sync] (b0) {$b_0$};
+% \node[Aobj,right of=b0] (b00) {$\PHobj{b_0}{b_0}$};
+% \node[Asol,right of=b00] (b00s) {};
+% \node[Aobj,above right of=b0] (b10) {$\PHobj{b_1}{b_0}$};
+% \node[Asol,right of=b10] (b10s) {};
+% 
+% \node[Aproc,below right of=a1b1sync] (b1) {$b_1$};
+% \node[Aobj,below right of=b1] (b11) {$\PHobj{b_1}{b_1}$};
+% \node[Asol,right of=b11] (b11s) {};
+% \node[Aobj,right of=b1] (b01) {$\PHobj{b_0}{b_1}$};
+% \node[Asol,right of=b01] (b01s) {};
+% \node[Async,right of=b01s] (a0sync) {$\{a_0\}$};
+% \node[Aproc,right of=a0sync] (a0) {$a_0$};
+% \node[Aobj,right of=a0] (a00) {$\PHobj{a_0}{a_0}$};
+% \node[Asol,right of=a00] (a00s) {};
+% \node[Aobj,below right of=a0] (a10) {$\PHobj{a_1}{a_0}$};
+% \node[Asol,right of=a10] (a10s) {};
+% 
+% \path
+% (z1) edge (z01)
+% (z01) edge (z01s)
+% (z01s) edge (ab11)
+% (ab11) edge[aSPrio] (ab11s)
+% (ab11s) edge (a1) edge (b1)
+% 
+% (a1) edge (a01) edge (a11)
+% (a01) edge (a01s)
+% (a01s) edge (b0)
+% (a11) edge (a11s)
+% (a0) edge (a10) edge (a00)
+% (a10) edge (a10s)
+% (a00) edge (a00s)
+% 
+% (b0) edge (b10) edge (b00)
+% (b10) edge (b10s)
+% (b00) edge (b00s)
+% (b1) edge (b01) edge (b11)
+% (b01) edge (b01s)
+% (b01s) edge (a0)
+% (b11) edge (b11s)
+% ;
+% }
 
 
 
@@ -813,10 +814,11 @@
   \node[llegend] at (\lvalignl,\lhfirst-2*\lhsep) {Solution to an objective};
 
   \ifthenelse{\equal{#1}{prio}}{%
-    \node[Aproc] at (\lvalign-.3cm,\lhfirst-3*\lhsep) (aprio1) {$ab_{11}$};
-    \node[Asol] at (\lvalign+.7cm,\lhfirst-3*\lhsep) (aprio2) {};
-    \path (aprio1) edge[aSPrio] (aprio2);
-    \node[llegend] at (\lvalignl,\lhfirst-3*\lhsep) {\phantom{Mg}\\Solution to a\\cooperative sort process};
+%     \node[Aproc] at (\lvalign-.3cm,\lhfirst-3*\lhsep) (aprio1) {$ab_{11}$};
+%     \node[Asol] at (\lvalign+.7cm,\lhfirst-3*\lhsep) (aprio2) {};
+%     \path (aprio1) edge[aSPrio] (aprio2);
+    \node[Async] at (\lvalign,\lhfirst-3*\lhsep) (aprio1) {$\{a_1, b_1\}$};
+    \node[llegend] at (\lvalignl,\lhfirst-3*\lhsep) {\phantom{Mg}\\Synchronization of\\several processes};
     \path[legendbox] (0,0) rectangle (5.8,3.6);
   }{%
     \path[legendbox] (0,1) rectangle (5.8,3.6);

@@ -40,6 +40,9 @@ Similar complexity for a more expressive formalism
 \end{frame}
 
 
+
+\setbeamercovered{transparent}
+
 \begin{frame}[c]
   \frametitle{Static Analysis of Canonical Process Hitting}
   \framesubtitle{\tcite{\cfpmrcsbio}}
@@ -53,23 +56,23 @@ Similar complexity for a more expressive formalism
   \item \only<-11>{cooperations are coherent}\only<12->{\sout{cooperations are coherent}}
 \end{itemize}
 \vspace{1cm}
-\hspace{2cm}\uncover<12->{\textcolor{darkyellow}{\textbf{Non-conclusive}}}
+\hspace{1cm}\uncover<12->{\textcolor{darkyellow}{\textbf{Non-conclusive}}}
 \vspace{-3cm}
 }
 
 \begin{center}\scalebox{\scaleex}{
 \begin{tikzpicture}[aS]
   \path[draw=none,use as bounding box] (-.5,-2.2) rectangle (12,2.2);
-  \node[Aproc] (z1) {$z_1$};
-  \uncover<2->{ \node[Aobj,right of=z1] (z01) {$\PHobj{z_0}{z_1}$}; }
-  \uncover<3->{ \node[Asol,right of=z01] (z01s) {}; }
+  \uncover<2->{ \node[Aproc] (z1) {$z_1$}; }
+  \uncover<3->{ \node[Aobj,right of=z1] (z01) {$\PHobj{z_0}{z_1}$}; }
+  \uncover<4->{ \node[Asol,right of=z01] (z01s) {}; }
   
-  \uncover<4->{ \node[Aproc,right of=z01s] (ab11) {$ab_{11}$}; }
-  \uncover<5->{ \node[Asol,right of=ab11] (ab11s) {}; }
+  \uncover<5->{ \node[Async,right of=z01s] (a1b1sync) {$\{a_1, b_1\}$}; }
+  %\uncover<5->{ \node[Asol,right of=ab11] (ab11s) {}; }
   
   \uncover<6->{
-    \node[Aproc,above right of=ab11s] (a1) {$a_1$};
-    \node[Aproc,below right of=ab11s] (b1) {$b_1$};
+    \node[Aproc,above right of=a1b1sync] (a1) {$a_1$};
+    \node[Aproc,below right of=a1b1sync] (b1) {$b_1$};
   }
   
   \uncover<7->{
@@ -77,54 +80,64 @@ Similar complexity for a more expressive formalism
     \node[Asol,right of=a11] (a11s) {};
     \node[Aobj,right of=a1] (a01) {$\PHobj{a_0}{a_1}$};
     \node[Asol,right of=a01] (a01s) {};
-    \node[Aproc,right of=a01s] (b0) {$b_0$};
+    \node[Async,right of=a01s] (b0sync) {$\{b_0\}$};
+    \node[Aproc,right of=b0sync] (b0) {$b_0$};
     \node[Aobj,right of=b0] (b00) {$\PHobj{b_0}{b_0}$};
     \node[Asol,right of=b00] (b00s) {};
     \node[Aobj,above right of=b0] (b10) {$\PHobj{b_1}{b_0}$};
     \node[Asol,right of=b10] (b10s) {};
+    \node[Async,right of=b10s,node distance=.8cm] (b10sync) {$\emptyset$};
     
     \node[Aobj,below right of=b1] (b11) {$\PHobj{b_1}{b_1}$};
     \node[Asol,right of=b11] (b11s) {};
     \node[Aobj,right of=b1] (b01) {$\PHobj{b_0}{b_1}$};
     \node[Asol,right of=b01] (b01s) {};
-    \node[Aproc,right of=b01s] (a0) {$a_0$};
+    \node[Async,right of=b01s] (a0sync) {$\{a_0\}$};
+    \node[Aproc,right of=a0sync] (a0) {$a_0$};
     \node[Aobj,right of=a0] (a00) {$\PHobj{a_0}{a_0}$};
     \node[Asol,right of=a00] (a00s) {};
     \node[Aobj,below right of=a0] (a10) {$\PHobj{a_1}{a_0}$};
     \node[Asol,right of=a10] (a10s) {};
+    \node[Async,right of=a10s,node distance=.8cm] (a10sync) {$\emptyset$};
   }
   
-  \path (z1) edge (z01);
-  \path<2-> (z01) edge (z01s);
-  \path<3-> (z01s) edge (ab11);
-  \path<4-> (ab11) edge[aSPrio] (ab11s);
-  \path<5-> (ab11s) edge (a1) edge (b1);
-  \path<6-> (a1) edge (a01) edge (a11) (b1) edge (b01) edge (b11);
+  \uncover<2->{ \path (z1) edge (z01); }
+  \uncover<3->{ \path (z01) edge (z01s); }
+  \uncover<4->{ \path (z01s) edge (a1b1sync); }
+  %\path<4-> (ab11) edge[aSPrio] (ab11s);
+  \uncover<5->{ \path (a1b1sync) edge (a1) edge (b1); }
+  \uncover<6->{ \path (a1) edge (a01) edge (a11) (b1) edge (b01) edge (b11); }
   
-  \path<7->
-  (a01) edge (a01s)
-  (a01s) edge (b0)
-  (a11) edge (a11s)
-  (a0) edge (a10) edge (a00)
-  (a10) edge (a10s)
-  (a00) edge (a00s)
-  
-  (b0) edge (b10) edge (b00)
-  (b10) edge (b10s)
-  (b00) edge (b00s)
-  (b01) edge (b01s)
-  (b01s) edge (a0)
-  (b11) edge (b11s)
-  ;
+  \uncover<7->{ \path
+    (a01) edge (a01s)
+    (a01s) edge (b0sync)
+    (b0sync) edge (b0)
+    (a11) edge (a11s)
+    (a0) edge (a10) edge (a00)
+    (a10) edge (a10s)
+    (a10s) edge (a10sync)
+    (a00) edge (a00s)
+    
+    (b0) edge (b10) edge (b00)
+    (b10) edge (b10s)
+    (b10s) edge (b10sync)
+    (b00) edge (b00s)
+    (b01) edge (b01s)
+    (b01s) edge (a0sync)
+    (a0sync) edge (a0)
+    (b11) edge (b11s)
+  ; }
   
   % Arc non cohérent
-  \node<9-11>[Aproc,Aex,at=(ab11)] {$ab_{11}$};
-  \node<9-11>[Asol,Aexsol,right of=ab11] (ab11s) {};
-  \path<9-11> (ab11) edge[aSPrio,Aexedge] (ab11s);
-  \node<12>[Aproc,Ahl,at=(ab11)] {$ab_{11}$};
-  \node<12>[Asol,Ahlsol,right of=ab11] (ab11s) {};
-  \path<12> (ab11) edge[aSPrio,Ahledge] (ab11s);
-  
+  \node<9-11>[Async,Aex,at=(a1b1sync)] {$\{a_1, b_1\}$};
+  \node<12->[Async,Ahl,at=(a1b1sync)] {$\{a_1, b_1\}$};
+%   \node<9-11>[Aproc,Aex,at=(ab11)] {$ab_{11}$};
+%   \node<9-11>[Asol,Aexsol,right of=ab11] (ab11s) {};
+%   \path<9-11> (ab11) edge[aSPrio,Aexedge] (ab11s);
+%   \node<12>[Aproc,Ahl,at=(ab11)] {$ab_{11}$};
+%   \node<12>[Asol,Ahlsol,right of=ab11] (ab11s) {};
+%   \path<12> (ab11) edge[aSPrio,Ahledge] (ab11s);
+%   
   \node<10>[Aproc,Aex,at=(a1)] {$a_1$};
   \node<10>[Aproc,Aex,at=(b1)] {$b_1$};
   \node<11->[Aproc,Ahl,at=(a1)] {$a_1$};
@@ -136,9 +149,18 @@ Similar complexity for a more expressive formalism
 \begin{tikzpicture}
   \path[use as bounding box] (-0.5,-0.5) rectangle (8.5,3.5);
   \tikzstyle{current process}=[process,fill=gray]
-  \exphcoopprio{prio}{}
+  \exphcoopprio{prio}{abstr}
   \node[process,very thick] at (z_1.center) {?};
   \TState{1-}{a_0, b_0, ab_0, z_0}
+  
+  \node<2>[process,Aex,very thick] at (z_1.center) {?};
+  \node<3>[process,Aex] at (z_1.center) {?};
+  \node<3>[process,Aex,fill=couleurex!60] at (z_0.center) {};
+  \path<4>[bounce,bend left,hl] \TBounce{z_0}{}{z_1}{.south} ;
+  \only<5>{ \THit{ab_3}{hl}{z_0}{.west}{z_1} \path[bounce,bend left,hl] \TBounce{z_0}{}{z_1}{.south}; }
+  \node<5>[process,Aex] at (ab_3.center) {};
+  \node<6>[process,Aex] at (a_1.center) {?};
+  \node<6>[process,Aex] at (b_1.center) {?};
 \end{tikzpicture}}
 \hfill
 \scalebox{\scaleex}{
@@ -150,6 +172,8 @@ Similar complexity for a more expressive formalism
 }}
 
 \end{frame}
+
+\setbeamercovered{invisible}
 
 
 
